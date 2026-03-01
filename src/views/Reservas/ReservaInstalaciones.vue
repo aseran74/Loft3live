@@ -281,7 +281,9 @@ function sumarDias(iso: string, dias: number) {
   return d.toISOString().slice(0, 10)
 }
 
-const presetsRango = [
+type PresetRango = { label: string; getRange: () => [string, string] }
+
+const presetsRango: PresetRango[] = [
   { label: 'Hoy', getRange: () => { const h = hoyISO(); return [h, h] } },
   { label: 'Esta semana', getRange: () => { const h = new Date(); const lunes = new Date(h); lunes.setDate(h.getDate() - h.getDay() + (h.getDay() === 0 ? -6 : 1)); const domingo = sumarDias(lunes.toISOString().slice(0, 10), 6); return [lunes.toISOString().slice(0, 10), domingo] } },
   { label: 'Este mes', getRange: () => { const h = new Date(); const ini = `${h.getFullYear()}-${String(h.getMonth() + 1).padStart(2, '0')}-01`; const ult = new Date(h.getFullYear(), h.getMonth() + 1, 0); const fin = ult.toISOString().slice(0, 10); return [ini, fin] } },
@@ -289,7 +291,7 @@ const presetsRango = [
   { label: 'Próx. 30 días', getRange: () => [hoyISO(), sumarDias(hoyISO(), 29)] },
 ]
 
-function aplicarPresetRango(preset: { label: string; getRange: () => [string, string] }) {
+function aplicarPresetRango(preset: PresetRango) {
   const [desde, hasta] = preset.getRange()
   filtroFechaDesde.value = desde
   filtroFechaHasta.value = hasta
