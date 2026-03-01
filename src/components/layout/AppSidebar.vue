@@ -1,0 +1,307 @@
+<template>
+  <aside
+    :class="[
+      'fixed mt-16 flex flex-col lg:mt-0 top-0 px-5 left-0 bg-white dark:bg-gray-900 dark:border-gray-800 text-gray-900 h-screen transition-all duration-300 ease-in-out z-99999 border-r border-gray-200',
+      {
+        'lg:w-[290px]': isExpanded || isMobileOpen || isHovered,
+        'lg:w-[90px]': !isExpanded && !isHovered,
+        'translate-x-0 w-[290px]': isMobileOpen,
+        '-translate-x-full': !isMobileOpen,
+        'lg:translate-x-0': true,
+      },
+    ]"
+    @mouseenter="!isExpanded && (isHovered = true)"
+    @mouseleave="isHovered = false"
+  >
+    <div
+      :class="[
+        'py-8 flex',
+        !isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start',
+      ]"
+    >
+      <router-link to="/dashboard">
+        <img
+          v-if="isExpanded || isHovered || isMobileOpen"
+          class="dark:hidden h-10 w-auto object-contain"
+          src="/images/images/Logodefi.png"
+          alt="Loft2Live"
+          width="150"
+          height="40"
+        />
+        <img
+          v-if="isExpanded || isHovered || isMobileOpen"
+          class="hidden dark:block h-10 w-auto object-contain"
+          src="/images/images/Logoblanco3.png"
+          alt="Loft2Live"
+          width="150"
+          height="40"
+        />
+        <template v-else>
+          <img
+            class="dark:hidden h-8 w-auto object-contain"
+            src="/images/images/Logodefi.png"
+            alt="Loft2Live"
+            width="32"
+            height="32"
+          />
+          <img
+            class="hidden dark:block h-8 w-auto object-contain"
+            src="/images/images/Logoblanco3.png"
+            alt="Loft2Live"
+            width="32"
+            height="32"
+          />
+        </template>
+      </router-link>
+    </div>
+    <div
+      class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar"
+    >
+      <nav class="mb-6">
+        <div class="flex flex-col gap-4">
+          <div v-for="(menuGroup, groupIndex) in menuGroups" :key="groupIndex">
+            <h2
+              :class="[
+                'mb-4 text-xs uppercase flex leading-[20px] text-gray-400',
+                !isExpanded && !isHovered
+                  ? 'lg:justify-center'
+                  : 'justify-start',
+              ]"
+            >
+              <template v-if="isExpanded || isHovered || isMobileOpen">
+                {{ menuGroup.title }}
+              </template>
+              <HorizontalDots v-else />
+            </h2>
+            <ul class="flex flex-col gap-4">
+              <li v-for="(item, index) in menuGroup.items" :key="item.name">
+                <button
+                  v-if="item.subItems"
+                  @click="toggleSubmenu(groupIndex, index)"
+                  :class="[
+                    'menu-item group w-full',
+                    {
+                      'menu-item-active': isSubmenuOpen(groupIndex, index),
+                      'menu-item-inactive': !isSubmenuOpen(groupIndex, index),
+                    },
+                    !isExpanded && !isHovered
+                      ? 'lg:justify-center'
+                      : 'lg:justify-start',
+                  ]"
+                >
+                  <span
+                    :class="[
+                      isSubmenuOpen(groupIndex, index)
+                        ? 'menu-item-icon-active'
+                        : 'menu-item-icon-inactive',
+                    ]"
+                  >
+                    <component :is="item.icon" />
+                  </span>
+                  <span
+                    v-if="isExpanded || isHovered || isMobileOpen"
+                    class="menu-item-text"
+                    >{{ item.name }}</span
+                  >
+                  <ChevronDownIcon
+                    v-if="isExpanded || isHovered || isMobileOpen"
+                    :class="[
+                      'ml-auto w-5 h-5 transition-transform duration-200',
+                      {
+                        'rotate-180 text-brand-500': isSubmenuOpen(
+                          groupIndex,
+                          index
+                        ),
+                      },
+                    ]"
+                  />
+                </button>
+                <router-link
+                  v-else-if="item.path"
+                  :to="item.path"
+                  :class="[
+                    'menu-item group',
+                    {
+                      'menu-item-active': isActive(item.path),
+                      'menu-item-inactive': !isActive(item.path),
+                    },
+                  ]"
+                >
+                  <span
+                    :class="[
+                      isActive(item.path)
+                        ? 'menu-item-icon-active'
+                        : 'menu-item-icon-inactive',
+                    ]"
+                  >
+                    <component :is="item.icon" />
+                  </span>
+                  <span
+                    v-if="isExpanded || isHovered || isMobileOpen"
+                    class="menu-item-text"
+                    >{{ item.name }}</span
+                  >
+                </router-link>
+                <transition
+                  @enter="startTransition"
+                  @after-enter="endTransition"
+                  @before-leave="startTransition"
+                  @after-leave="endTransition"
+                >
+                  <div
+                    v-show="
+                      isSubmenuOpen(groupIndex, index) &&
+                      (isExpanded || isHovered || isMobileOpen)
+                    "
+                  >
+                    <ul class="mt-2 space-y-1 ml-9">
+                      <li v-for="subItem in item.subItems" :key="subItem.name">
+                        <router-link
+                          :to="subItem.path"
+                          :class="[
+                            'menu-dropdown-item',
+                            {
+                              'menu-dropdown-item-active': isActive(
+                                subItem.path
+                              ),
+                              'menu-dropdown-item-inactive': !isActive(
+                                subItem.path
+                              ),
+                            },
+                          ]"
+                        >
+                          {{ subItem.name }}
+                          <span class="flex items-center gap-1 ml-auto">
+                            <span
+                              v-if="subItem.new"
+                              :class="[
+                                'menu-dropdown-badge',
+                                {
+                                  'menu-dropdown-badge-active': isActive(
+                                    subItem.path
+                                  ),
+                                  'menu-dropdown-badge-inactive': !isActive(
+                                    subItem.path
+                                  ),
+                                },
+                              ]"
+                            >
+                              new
+                            </span>
+                            <span
+                              v-if="subItem.pro"
+                              :class="[
+                                'menu-dropdown-badge',
+                                {
+                                  'menu-dropdown-badge-active': isActive(
+                                    subItem.path
+                                  ),
+                                  'menu-dropdown-badge-inactive': !isActive(
+                                    subItem.path
+                                  ),
+                                },
+                              ]"
+                            >
+                              pro
+                            </span>
+                          </span>
+                        </router-link>
+                      </li>
+                    </ul>
+                  </div>
+                </transition>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <SidebarWidget v-if="isExpanded || isHovered || isMobileOpen" />
+    </div>
+  </aside>
+</template>
+
+<script setup>
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+
+import { ChevronDownIcon, HorizontalDots, GridIcon } from "../../icons";
+import FolderIcon from "@/icons/FolderIcon.vue";
+import UserGroupIcon from "@/icons/UserGroupIcon.vue";
+import HomeIcon from "@/icons/HomeIcon.vue";
+import UserCircleIcon from "@/icons/UserCircleIcon.vue";
+import BarChartIcon from "@/icons/BarChartIcon.vue";
+import PieChartIcon from "@/icons/PieChartIcon.vue";
+import CalenderIcon from "@/icons/CalenderIcon.vue";
+import TaskIcon from "@/icons/TaskIcon.vue";
+import ChatIcon from "@/icons/ChatIcon.vue";
+import FlagIcon from "@/icons/FlagIcon.vue";
+import InfoCircleIcon from "@/icons/InfoCircleIcon.vue";
+import LayoutDashboardIcon from "@/icons/LayoutDashboardIcon.vue";
+import SidebarWidget from "./SidebarWidget.vue";
+import { useSidebar } from "@/composables/useSidebar";
+
+const route = useRoute();
+
+const { isExpanded, isMobileOpen, isHovered, openSubmenu } = useSidebar();
+
+const menuGroups = [
+  {
+    title: 'Menu',
+    items: [
+      { icon: GridIcon, name: 'Dashboard', path: '/dashboard' },
+      { icon: FolderIcon, name: 'Proyectos', path: '/proyectos' },
+      { icon: UserGroupIcon, name: 'Gestión Compradores', path: '/gestion-compradores' },
+      { icon: HomeIcon, name: 'Gestión Inquilinos', path: '/gestion-inquilinos' },
+      { icon: UserCircleIcon, name: 'Gestión perfiles', path: '/gestion-perfiles' },
+      { icon: BarChartIcon, name: 'Facturación Alquiler', path: '/facturacion-alquiler' },
+      { icon: PieChartIcon, name: 'Facturación Compradores', path: '/facturacion-compradores' },
+      { icon: CalenderIcon, name: 'Reserva Corta Estancia', path: '/reserva-corta-estancia' },
+      { icon: TaskIcon, name: 'Reserva Instalaciones', path: '/reserva-instalaciones' },
+      { icon: ChatIcon, name: 'Mensajes', path: '/mensajes' },
+      { icon: FlagIcon, name: 'Incidencias', path: '/incidencias' },
+      { icon: CalenderIcon, name: 'Flextime', path: '/flextime' },
+      { icon: InfoCircleIcon, name: 'Solicitudes de información', path: '/solicitudes-info' },
+      { icon: LayoutDashboardIcon, name: 'Ver landing', path: '/landing' },
+    ],
+  },
+];
+
+const isActive = (path) => route.path === path;
+
+const toggleSubmenu = (groupIndex, itemIndex) => {
+  const key = `${groupIndex}-${itemIndex}`;
+  openSubmenu.value = openSubmenu.value === key ? null : key;
+};
+
+const isAnySubmenuRouteActive = computed(() => {
+  return menuGroups.some((group) =>
+    group.items.some(
+      (item) =>
+        item.subItems && item.subItems.some((subItem) => isActive(subItem.path))
+    )
+  );
+});
+
+const isSubmenuOpen = (groupIndex, itemIndex) => {
+  const key = `${groupIndex}-${itemIndex}`;
+  return (
+    openSubmenu.value === key ||
+    (isAnySubmenuRouteActive.value &&
+      menuGroups[groupIndex].items[itemIndex].subItems?.some((subItem) =>
+        isActive(subItem.path)
+      ))
+  );
+};
+
+const startTransition = (el) => {
+  el.style.height = "auto";
+  const height = el.scrollHeight;
+  el.style.height = "0px";
+  el.offsetHeight; // force reflow
+  el.style.height = height + "px";
+};
+
+const endTransition = (el) => {
+  el.style.height = "";
+};
+</script>
