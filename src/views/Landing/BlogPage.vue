@@ -2,6 +2,19 @@
   <div class="min-h-screen bg-white dark:bg-gray-900">
     <LandingHeader />
     <main class="blog-page pt-24 pb-16">
+      <!-- Volver con flecha -->
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-2">
+        <router-link
+          to="/"
+          class="blog-back-link"
+        >
+          <svg class="blog-back-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          Volver
+        </router-link>
+      </div>
+
       <!-- Hero del blog -->
       <header class="blog-hero">
         <div class="blog-hero-inner">
@@ -183,6 +196,34 @@ const posts: Post[] = [
 .blog-page,
 .blog-page * {
   font-family: 'Outfit', 'Switzer', sans-serif;
+}
+
+/* Volver con flecha */
+.blog-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-gray-600, #475467);
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease;
+}
+.blog-back-link:hover {
+  color: var(--color-brand-600, #3641f5);
+  gap: 0.625rem;
+}
+.dark .blog-back-link {
+  color: #9ca3af;
+}
+.dark .blog-back-link:hover {
+  color: var(--color-brand-400, #818cf8);
+}
+
+.blog-back-arrow {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
 }
 
 /* Hero del blog */
