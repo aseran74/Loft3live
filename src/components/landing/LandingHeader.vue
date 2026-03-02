@@ -1,12 +1,15 @@
 <template>
   <header 
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="{
-      'bg-[#E1DBD6]/90 backdrop-blur-md shadow-sm py-1.5': isScrolled,
-      'bg-transparent pt-2 pb-1': !isScrolled
-    }"
+    :class="isScrolled ? 'pt-3 pb-3 px-4 sm:px-6 lg:px-8' : 'pt-2 pb-1'"
   >
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <div 
+      class="mx-auto max-w-7xl transition-all duration-300"
+      :class="{
+        'rounded-full bg-white/20 dark:bg-gray-900/30 backdrop-blur-md shadow-lg border border-white/10 dark:border-white/5 px-4 sm:px-6 lg:px-8 py-2': isScrolled,
+        'px-4 sm:px-6 lg:px-8': !isScrolled
+      }"
+    >
       <div class="flex items-center justify-between h-14 lg:h-16 overflow-visible">
         <!-- Logo: blanco cuando navbar transparente, oscuro cuando scrolled -->
         <router-link to="/" class="flex items-center shrink-0 overflow-visible" title="Ir a inicio">

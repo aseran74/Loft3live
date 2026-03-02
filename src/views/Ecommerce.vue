@@ -1,6 +1,5 @@
 <template>
   <admin-layout>
-    <!-- Cabecera destacada con subrayado (mismo estilo que comprador/inquilino) -->
     <header class="relative mb-8 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-50 via-white to-brand-50/30 px-6 py-6 shadow-sm dark:border-gray-700 dark:from-gray-800/90 dark:via-gray-800 dark:to-brand-900/20 sm:px-8 sm:py-8">
       <div class="relative z-10">
         <span class="mb-2 inline-block rounded-full bg-brand-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-600 dark:bg-brand-400/20 dark:text-brand-300">
@@ -11,18 +10,19 @@
         </h1>
         <span class="mt-2 block h-1 w-16 rounded-full bg-brand-500 dark:bg-brand-400" aria-hidden="true" />
         <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
-          Bienvenido al panel de administración
+          Resumen con datos reales de proyectos, inquilinos, compradores, reservas e incidencias.
         </p>
       </div>
     </header>
-    <!-- Compra de puntos y Reserva puntos compradores: primera fila ancha para que siempre se vean -->
+
+    <!-- Compra de puntos y Reserva puntos compradores -->
     <div class="mb-6 grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2">
       <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
         <div class="flex items-center justify-between">
           <h3 class="text-base font-semibold text-gray-800 dark:text-white">Compra de puntos</h3>
           <router-link to="/gestion-compradores" class="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400">Ver compradores</router-link>
         </div>
-        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Solo el trimestre <strong>pendiente</strong> (no cobrado) se puede canjear por puntos. Los pagados ya no.</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Trimestre pendiente (no cobrado) para canjear por puntos.</p>
         <div v-if="compraPuntosLoading" class="mt-4 py-4 text-center text-sm text-gray-500">Cargando…</div>
         <div v-else class="mt-4 space-y-3">
           <div v-for="g in resumenCompraPuntos" :key="g.proyecto_id" class="rounded-xl border border-gray-100 bg-gray-50/80 p-3 dark:border-gray-700 dark:bg-gray-800/80">
@@ -37,7 +37,7 @@
           <h3 class="text-base font-semibold text-gray-800 dark:text-white">Reserva puntos compradores</h3>
           <router-link to="/gestion-compradores" class="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400">Ver compradores</router-link>
         </div>
-        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Reservas de compradores que usan puntos para estancias en lofts. Aprobadas por defecto.</p>
+        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Reservas de compradores con puntos. Aprobadas por defecto.</p>
         <div v-if="reservaPuntosLoading" class="mt-4 py-4 text-center text-sm text-gray-500">Cargando…</div>
         <div v-else class="mt-4 space-y-3">
           <div v-for="r in reservasPuntosOrdenadas" :key="r.id" class="rounded-xl border border-gray-100 bg-gray-50/80 p-3 dark:border-gray-700 dark:bg-gray-800/80">
@@ -55,25 +55,174 @@
       </div>
     </div>
 
+    <!-- KPIs datos reales -->
+    <div v-if="resumenLoading" class="mb-6 py-8 text-center text-sm text-gray-500">Cargando resumen…</div>
+    <div v-else class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4 lg:grid-cols-4 xl:grid-cols-7">
+      <router-link
+        to="/lista-proyectos"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Proyectos</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.totalProyectos }}</span>
+      </router-link>
+      <router-link
+        to="/gestion-inquilinos"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Inquilinos</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.totalInquilinos }}</span>
+      </router-link>
+      <router-link
+        to="/gestion-compradores"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Compradores</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.totalCompradores }}</span>
+      </router-link>
+      <router-link
+        to="/reserva-instalaciones"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Reservas instal.</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.totalReservasInstalaciones }}</span>
+      </router-link>
+      <router-link
+        to="/reserva-corta-estancia"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Corta estancia</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.totalReservasCortaEstancia }}</span>
+      </router-link>
+      <router-link
+        to="/incidencias"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Incidencias abiertas</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.incidenciasAbiertas }}</span>
+      </router-link>
+      <router-link
+        to="/solicitudes-info"
+        class="flex flex-col rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-brand-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-brand-700"
+      >
+        <span class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Solicitudes info</span>
+        <span class="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{{ resumen.totalSolicitudesInfo }}</span>
+      </router-link>
+    </div>
+
+    <!-- Listas recientes -->
     <div class="grid grid-cols-12 gap-4 md:gap-6">
-      <div class="col-span-12 space-y-6 xl:col-span-7">
-        <ecommerce-metrics />
-        <monthly-target />
-      </div>
-      <div class="col-span-12 xl:col-span-5 space-y-6">
-        <monthly-sale />
+      <div class="col-span-12 overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] xl:col-span-6">
+        <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-700 sm:px-6">
+          <h3 class="text-base font-semibold text-gray-800 dark:text-white">Últimas reservas instalaciones</h3>
+          <router-link to="/reserva-instalaciones" class="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400">Ver todas</router-link>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 dark:bg-gray-900">
+              <tr>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Fecha</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Proyecto</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Instalación</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Inquilino</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="r in resumen.ultimasReservasInstalaciones" :key="r.id" class="border-t border-gray-100 dark:border-gray-700">
+                <td class="px-3 py-2 text-gray-600 dark:text-gray-400">{{ formatoFechaCorta(r.fecha) }}</td>
+                <td class="px-3 py-2">{{ r.proyecto_nombre || '—' }}</td>
+                <td class="px-3 py-2">{{ etiquetaInstalacion(r.instalacion_tipo) }}</td>
+                <td class="px-3 py-2">{{ r.inquilino_nombre || '—' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-if="resumen.ultimasReservasInstalaciones.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">No hay reservas.</p>
+        </div>
       </div>
 
-      <div class="col-span-12">
-        <statistics-chart />
+      <div class="col-span-12 overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] xl:col-span-6">
+        <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-700 sm:px-6">
+          <h3 class="text-base font-semibold text-gray-800 dark:text-white">Últimas reservas corta estancia</h3>
+          <router-link to="/reserva-corta-estancia" class="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400">Ver todas</router-link>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 dark:bg-gray-900">
+              <tr>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Entrada</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Salida</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Proyecto</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Loft</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="r in resumen.ultimasReservasCortaEstancia" :key="r.id" class="border-t border-gray-100 dark:border-gray-700">
+                <td class="px-3 py-2 text-gray-600 dark:text-gray-400">{{ formatoFechaCorta(r.fecha_inicio) }}</td>
+                <td class="px-3 py-2 text-gray-600 dark:text-gray-400">{{ formatoFechaCorta(r.fecha_fin) }}</td>
+                <td class="px-3 py-2">{{ r.proyecto_nombre || '—' }}</td>
+                <td class="px-3 py-2">{{ r.loft_num }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-if="resumen.ultimasReservasCortaEstancia.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">No hay reservas.</p>
+        </div>
       </div>
 
-      <div class="col-span-12 xl:col-span-5">
-        <customer-demographic />
+      <div class="col-span-12 overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] xl:col-span-6">
+        <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-700 sm:px-6">
+          <h3 class="text-base font-semibold text-gray-800 dark:text-white">Incidencias recientes</h3>
+          <router-link to="/incidencias" class="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400">Ver todas</router-link>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 dark:bg-gray-900">
+              <tr>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Fecha</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Proyecto</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Tipo</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="i in resumen.ultimasIncidencias" :key="i.id" class="border-t border-gray-100 dark:border-gray-700">
+                <td class="px-3 py-2 text-gray-600 dark:text-gray-400">{{ formatoFechaCorta(i.created_at) }}</td>
+                <td class="px-3 py-2">{{ i.proyecto_nombre || '—' }}</td>
+                <td class="px-3 py-2">{{ etiquetaTipoIncidencia(i.tipo) }}</td>
+                <td class="px-3 py-2">
+                  <span :class="estadoIncidenciaClass(i.estado)">{{ i.estado }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-if="resumen.ultimasIncidencias.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">No hay incidencias.</p>
+        </div>
       </div>
 
-      <div class="col-span-12 xl:col-span-7">
-        <recent-orders />
+      <div class="col-span-12 overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] xl:col-span-6">
+        <div class="flex items-center justify-between border-b border-gray-100 px-4 py-3 dark:border-gray-700 sm:px-6">
+          <h3 class="text-base font-semibold text-gray-800 dark:text-white">Solicitudes de información</h3>
+          <router-link to="/solicitudes-info" class="text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400">Ver todas</router-link>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 dark:bg-gray-900">
+              <tr>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Fecha</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Email</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="s in resumen.ultimasSolicitudesInfo" :key="s.id" class="border-t border-gray-100 dark:border-gray-700">
+                <td class="px-3 py-2 text-gray-600 dark:text-gray-400">{{ formatoFechaCorta(s.created_at) }}</td>
+                <td class="px-3 py-2">{{ s.email }}</td>
+                <td class="px-3 py-2">
+                  <span :class="s.tipo === 'alquilar' ? 'text-brand-600 dark:text-brand-400' : 'text-emerald-600 dark:text-emerald-400'">{{ s.tipo === 'alquilar' ? 'Alquilar' : 'Comprar' }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p v-if="resumen.ultimasSolicitudesInfo.length === 0" class="p-4 text-center text-gray-500 dark:text-gray-400">No hay solicitudes.</p>
+        </div>
       </div>
     </div>
   </admin-layout>
@@ -81,24 +230,14 @@
 
 <script>
 import AdminLayout from '../components/layout/AdminLayout.vue'
-import EcommerceMetrics from '../components/ecommerce/EcommerceMetrics.vue'
-import MonthlyTarget from '../components/ecommerce/MonthlySale.vue'
-import MonthlySale from '../components/ecommerce/MonthlyTarget.vue'
-import CustomerDemographic from '../components/ecommerce/CustomerDemographic.vue'
-import StatisticsChart from '../components/ecommerce/StatisticsChart.vue'
-import RecentOrders from '../components/ecommerce/RecentOrders.vue'
 import { insforge } from '@/lib/insforge'
 
+const LIMIT = 8
+const INSTALACIONES_LABEL = { gimnasio: 'Gimnasio', piscina: 'Piscina', sala_reuniones: 'Sala reuniones', coworking: 'Coworking', otros: 'Otros' }
+const TIPO_INCIDENCIA_LABEL = { malos_olores: 'Malos olores', ruidos: 'Ruidos', frio_calor: 'Frío/calor', otros: 'Otros' }
+
 export default {
-  components: {
-    AdminLayout,
-    EcommerceMetrics,
-    MonthlyTarget,
-    MonthlySale,
-    CustomerDemographic,
-    StatisticsChart,
-    RecentOrders,
-  },
+  components: { AdminLayout },
   name: 'Ecommerce',
   data () {
     return {
@@ -106,6 +245,20 @@ export default {
       resumenCompraPuntos: [],
       reservaPuntosLoading: true,
       reservasPuntos: [],
+      resumenLoading: true,
+      resumen: {
+        totalProyectos: 0,
+        totalInquilinos: 0,
+        totalCompradores: 0,
+        totalReservasInstalaciones: 0,
+        totalReservasCortaEstancia: 0,
+        incidenciasAbiertas: 0,
+        totalSolicitudesInfo: 0,
+        ultimasReservasInstalaciones: [],
+        ultimasReservasCortaEstancia: [],
+        ultimasIncidencias: [],
+        ultimasSolicitudesInfo: [],
+      },
     }
   },
   computed: {
@@ -123,6 +276,26 @@ export default {
       if (!dateStr) return '—'
       return new Date(dateStr + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
     },
+    formatoFechaCorta (dateStr) {
+      if (!dateStr) return '—'
+      try {
+        const d = dateStr.includes('T') ? new Date(dateStr) : new Date(dateStr + 'T12:00:00')
+        return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: '2-digit' })
+      } catch {
+        return dateStr
+      }
+    },
+    etiquetaInstalacion (tipo) {
+      return INSTALACIONES_LABEL[tipo] || tipo || '—'
+    },
+    etiquetaTipoIncidencia (tipo) {
+      return TIPO_INCIDENCIA_LABEL[tipo] || tipo || '—'
+    },
+    estadoIncidenciaClass (estado) {
+      if (estado === 'resuelto') return 'rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/40 dark:text-green-300'
+      if (estado === 'tratado') return 'rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-300'
+      return 'rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+    },
     async loadCompraPuntos () {
       this.compraPuntosLoading = true
       try {
@@ -138,9 +311,7 @@ export default {
         let proyectosMap = {}
         if (ids.length > 0) {
           const { data: proys } = await insforge.database.from('proyectos').select('id, nombre_proyecto').in('id', ids)
-          for (const p of (proys || [])) {
-            proyectosMap[p.id] = p.nombre_proyecto
-          }
+          for (const p of (proys || [])) proyectosMap[p.id] = p.nombre_proyecto
         }
         const byKey = {}
         for (const r of list) {
@@ -219,10 +390,92 @@ export default {
         this.reservaPuntosLoading = false
       }
     },
+    async loadResumen () {
+      this.resumenLoading = true
+      try {
+        const db = insforge.database
+
+        const [countProyectos, countInquilinos, countCompradores, countResInst, countResCorta, countIncAbiertas, countSolicitudes,
+          dataResInst, dataResCorta, dataInc, dataSolicitudes] = await Promise.all([
+          db.from('proyectos').select('id', { count: 'exact', head: true }),
+          db.from('inquilinos').select('id', { count: 'exact', head: true }),
+          db.from('compradores').select('id', { count: 'exact', head: true }),
+          db.from('reservas_instalaciones').select('id', { count: 'exact', head: true }),
+          db.from('reservas_corta_estancia').select('id', { count: 'exact', head: true }),
+          db.from('incidencias').select('id', { count: 'exact', head: true }).neq('estado', 'resuelto'),
+          db.from('solicitudes_info').select('id', { count: 'exact', head: true }),
+          db.from('reservas_instalaciones').select('id, proyecto_id, instalacion_tipo, inquilino_id, fecha').order('fecha', { ascending: false }).limit(LIMIT),
+          db.from('reservas_corta_estancia').select('id, proyecto_id, loft_num, fecha_inicio, fecha_fin').order('fecha_inicio', { ascending: false }).limit(LIMIT),
+          db.from('incidencias').select('id, proyecto_id, tipo, estado, created_at').order('created_at', { ascending: false }).limit(LIMIT),
+          db.from('solicitudes_info').select('id, email, tipo, created_at').order('created_at', { ascending: false }).limit(LIMIT),
+        ])
+
+        this.resumen.totalProyectos = countProyectos.count ?? 0
+        this.resumen.totalInquilinos = countInquilinos.count ?? 0
+        this.resumen.totalCompradores = countCompradores.count ?? 0
+        this.resumen.totalReservasInstalaciones = countResInst.count ?? 0
+        this.resumen.totalReservasCortaEstancia = countResCorta.count ?? 0
+        this.resumen.incidenciasAbiertas = countIncAbiertas.count ?? 0
+        this.resumen.totalSolicitudesInfo = countSolicitudes.count ?? 0
+
+        const listResInst = dataResInst.data || []
+        const listResCorta = dataResCorta.data || []
+        const listInc = dataInc.data || []
+        const listSolicitudes = dataSolicitudes.data || []
+
+        const proyIds = [...new Set([
+          ...listResInst.map(r => r.proyecto_id),
+          ...listResCorta.map(r => r.proyecto_id),
+          ...listInc.map(i => i.proyecto_id),
+        ].filter(Boolean))]
+        let proyectoMap = {}
+        if (proyIds.length > 0) {
+          const { data: proys } = await db.from('proyectos').select('id, nombre_proyecto').in('id', proyIds)
+          for (const p of (proys || [])) proyectoMap[p.id] = p.nombre_proyecto
+        }
+
+        const inqIds = [...new Set(listResInst.map(r => r.inquilino_id).filter(Boolean))]
+        let inquilinoMap = {}
+        if (inqIds.length > 0) {
+          const { data: inqs } = await db.from('inquilinos').select('id, nombre').in('id', inqIds)
+          for (const i of (inqs || [])) inquilinoMap[i.id] = i.nombre
+        }
+
+        this.resumen.ultimasReservasInstalaciones = listResInst.map(r => ({
+          ...r,
+          proyecto_nombre: proyectoMap[r.proyecto_id],
+          inquilino_nombre: inquilinoMap[r.inquilino_id],
+        }))
+        this.resumen.ultimasReservasCortaEstancia = listResCorta.map(r => ({
+          ...r,
+          proyecto_nombre: proyectoMap[r.proyecto_id],
+        }))
+        this.resumen.ultimasIncidencias = listInc.map(i => ({
+          ...i,
+          proyecto_nombre: proyectoMap[i.proyecto_id],
+        }))
+        this.resumen.ultimasSolicitudesInfo = listSolicitudes
+      } catch (_) {
+        this.resumen.totalProyectos = 0
+        this.resumen.totalInquilinos = 0
+        this.resumen.totalCompradores = 0
+        this.resumen.totalReservasInstalaciones = 0
+        this.resumen.totalReservasCortaEstancia = 0
+        this.resumen.incidenciasAbiertas = 0
+        this.resumen.totalSolicitudesInfo = 0
+        this.resumen.ultimasReservasInstalaciones = []
+        this.resumen.ultimasReservasCortaEstancia = []
+        this.resumen.ultimasIncidencias = []
+        this.resumen.ultimasSolicitudesInfo = []
+      } finally {
+        this.resumenLoading = false
+      }
+    },
   },
   mounted () {
     this.loadCompraPuntos()
     this.loadReservaPuntos()
+    this.loadResumen()
   },
 }
 </script>

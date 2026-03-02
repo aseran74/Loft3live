@@ -71,6 +71,27 @@ La autenticación y los datos se gestionan con **Insforge** (BaaS). Rutas proteg
 - `src/router/index.ts` — Rutas y protección por perfil.
 - `src/lib/insforge.ts` — Cliente Insforge.
 
+## Despliegue en Vercel
+
+1. Entra en [vercel.com](https://vercel.com) e inicia sesión (con GitHub si el repo está ahí).
+
+2. **Import Project**: añade el repositorio `aseran74/Loft3live`. Vercel detectará Vite y usará el `vercel.json` del proyecto (build: `npm run build`, salida: `dist`, rewrites para SPA).
+
+3. **Variables de entorno**: en *Settings → Environment Variables* añade las que use la app (todas con prefijo `VITE_` para que Vite las incluya en el build), por ejemplo:
+   - `VITE_INSFORGE_URL` o `VITE_INSFORGE_BASE_URL` — URL del backend Insforge
+   - `VITE_INSFORGE_ANON_KEY` — Clave anónima de Insforge
+   - `VITE_ADMIN_EMAIL` — (opcional) Email del admin
+   - `VITE_GOOGLE_PLACES_API_KEY` — (opcional) Si usas Google Places
+
+4. **Deploy**: pulsa Deploy. Cada push a `main` generará un nuevo despliegue automático.
+
+Para desplegar desde la terminal puedes instalar el CLI y ejecutar `vercel` en la raíz del proyecto:
+
+```bash
+npm i -g vercel
+vercel
+```
+
 ## Licencia
 
 Proyecto privado. Uso según acuerdo con los titulares del repositorio.
