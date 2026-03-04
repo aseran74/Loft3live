@@ -22,14 +22,14 @@
       <router-link to="/inquilino" class="block">
         <template v-if="isExpanded || isHovered || isMobileOpen">
           <img
-            src="/images/images/Logoblanco3.png"
+            src="/images/images/loft2live-logo-blanco.png"
             alt="Loft2Live"
             width="150"
             height="40"
             class="h-10 w-auto max-w-[150px] object-contain opacity-95 hidden dark:block"
           />
           <img
-            src="/images/images/Logodefi.png"
+            src="/images/images/loft2live-logo-color.png"
             alt="Loft2Live"
             width="150"
             height="40"
@@ -38,14 +38,14 @@
         </template>
         <template v-else>
           <img
-            src="/images/images/Logoblanco3.png"
+            src="/images/images/loft2live-logo-blanco.png"
             alt="Loft2Live"
             width="32"
             height="32"
             class="h-8 w-8 object-contain opacity-95 hidden dark:block"
           />
           <img
-            src="/images/images/Logodefi.png"
+            src="/images/images/loft2live-logo-color.png"
             alt="Loft2Live"
             width="32"
             height="32"

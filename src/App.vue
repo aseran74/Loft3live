@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, watch, nextTick } from 'vue'
 import ThemeProvider from './components/layout/ThemeProvider.vue'
 import SidebarProvider from './components/layout/SidebarProvider.vue'
 import { useAuth } from './composables/useAuth'
@@ -19,5 +19,10 @@ const { initSession, loading } = useAuth()
 
 onMounted(() => {
   initSession()
+})
+
+// Señal para pre-render (vite-plugin-prerender): cuando la vista está lista
+watch(loading, (val) => {
+  if (!val) nextTick(() => document.dispatchEvent(new Event('render-event')))
 })
 </script>

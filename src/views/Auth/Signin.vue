@@ -285,7 +285,7 @@
                 <img
                   width="231"
                   height="48"
-                  src="/images/images/Logoblanco3.png"
+                  src="/images/images/loft2live-logo-blanco.png"
                   alt="Loft2Live"
                   class="h-48 w-auto object-contain"
                 />

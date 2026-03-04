@@ -23,7 +23,7 @@
         <img
           v-if="isExpanded || isHovered || isMobileOpen"
           class="dark:hidden h-10 w-auto object-contain"
-          src="/images/images/Logodefi.png"
+          src="/images/images/loft2live-logo-color.png"
           alt="Loft2Live"
           width="150"
           height="40"
@@ -31,7 +31,7 @@
         <img
           v-if="isExpanded || isHovered || isMobileOpen"
           class="hidden dark:block h-10 w-auto object-contain"
-          src="/images/images/Logoblanco3.png"
+          src="/images/images/loft2live-logo-blanco.png"
           alt="Loft2Live"
           width="150"
           height="40"
@@ -39,14 +39,14 @@
         <template v-else>
           <img
             class="dark:hidden h-8 w-auto object-contain"
-            src="/images/images/Logodefi.png"
+            src="/images/images/loft2live-logo-color.png"
             alt="Loft2Live"
             width="32"
             height="32"
           />
           <img
             class="hidden dark:block h-8 w-auto object-contain"
-            src="/images/images/Logoblanco3.png"
+            src="/images/images/loft2live-logo-blanco.png"
             alt="Loft2Live"
             width="32"
             height="32"

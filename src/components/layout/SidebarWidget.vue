@@ -4,12 +4,12 @@
   >
     <img
       class="mx-auto mb-3 h-12 w-auto object-contain dark:hidden"
-      src="/images/images/Logodefi.png"
+      src="/images/images/loft2live-logo-color.png"
       alt="Loft2Live"
     />
     <img
       class="mx-auto mb-3 hidden h-12 w-auto object-contain dark:block"
-      src="/images/images/Logoblanco3.png"
+      src="/images/images/loft2live-logo-blanco.png"
       alt="Loft2Live"
     />
     <p class="text-theme-sm font-medium text-gray-800 dark:text-white/90">

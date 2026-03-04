@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "npm run sitemap && run-p type-check \"build-only {@}\" --",
+    "sitemap": "node scripts/generate-sitemap.js",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
@@ -56,6 +57,7 @@
     "tailwindcss": "^4.0.0",
     "typescript": "~5.7.3",
     "vite": "^6.0.11",
+    "vite-plugin-prerender": "^1.0.8",
     "vite-plugin-vue-devtools": "^7.7.0",
     "vue-tsc": "^2.2.0"
   }

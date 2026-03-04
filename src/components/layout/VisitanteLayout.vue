@@ -2,8 +2,8 @@
   <div class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
     <header class="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-900 md:px-6">
       <router-link to="/visitante" class="flex items-center gap-2">
-        <img class="h-16 w-auto object-contain dark:hidden md:h-20" src="/images/images/Logodefi.png" alt="Loft2Live" />
-        <img class="hidden h-16 w-auto object-contain dark:block md:h-20" src="/images/images/Logoblanco3.png" alt="Loft2Live" />
+        <img class="h-16 w-auto object-contain dark:hidden md:h-20" src="/images/images/loft2live-logo-color.png" alt="Loft2Live" />
+        <img class="hidden h-16 w-auto object-contain dark:block md:h-20" src="/images/images/loft2live-logo-blanco.png" alt="Loft2Live" />
       </router-link>
       <div class="flex items-center gap-2">
         <router-link

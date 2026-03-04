@@ -254,7 +254,7 @@ gsap.registerPlugin(ScrollTrigger)
 const videoEl = ref<HTMLVideoElement | null>(null)
 const showPlayOverlay = ref(true)
 const videoSectionSrc = '/images/Videoabajo.mp4'
-const logoOverlaySrc = '/images/images/Logoblanco3.png'
+const logoOverlaySrc = '/images/images/loft2live-logo-blanco.png'
 const savingsModalOpen = ref(false)
 const contractModalOpen = ref(false)
 const arrendamientoModalOpen = ref(false)

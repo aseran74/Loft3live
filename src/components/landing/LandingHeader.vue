@@ -14,8 +14,8 @@
         <!-- Logo: blanco cuando navbar transparente, oscuro cuando scrolled -->
         <router-link to="/" class="flex items-center shrink-0 overflow-visible" title="Ir a inicio">
           <img 
-            :src="isScrolled ? '/images/images/Logodefi.png' : '/images/images/Logoblanco3.png'" 
-            alt="Loft2live Logo" 
+            :src="isScrolled ? '/images/images/loft2live-logo-color.png' : '/images/images/loft2live-logo-blanco.png'" 
+            alt="Loft2Live - Inversión y alquiler flexible en lofts" 
             class="h-24 w-auto object-contain object-left lg:h-28"
           />
         </router-link>

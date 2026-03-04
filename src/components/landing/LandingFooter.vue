@@ -9,8 +9,8 @@
         <div class="flex flex-col items-start">
           <router-link to="/" class="inline-flex items-center hover:opacity-90 transition-opacity mb-6">
             <img
-              src="/images/images/Logoblanco3.png"
-              alt="Loft2live"
+              src="/images/images/loft2live-logo-blanco.png"
+              alt="Loft2Live - Logo"
               class="h-24 w-auto object-contain"
               loading="lazy"
             />

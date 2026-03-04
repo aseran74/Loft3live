@@ -49,7 +49,8 @@ const router = createRouter({
       name: 'Home',
       component: () => import('../views/Landing/LandingPage.vue'),
       meta: {
-        title: 'Loft2Live - Inicio',
+        title: 'Loft2Live - Inversión y alquiler flexible en lofts | Inicio',
+        description: 'Loft2Live: donde el espacio trabaja para ti. Inversión, alquiler flexible y Flex Use en lofts. Grupo Vihorev.',
       },
     },
     {
@@ -177,7 +178,8 @@ const router = createRouter({
       name: 'Signin',
       component: () => import('../views/Auth/Signin.vue'),
       meta: {
-        title: 'Signin',
+        title: 'Iniciar sesión | Loft2Live',
+        description: 'Accede a tu cuenta Loft2Live: inversión, alquiler flexible y gestión de puntos.',
       },
     },
     {
@@ -398,13 +400,19 @@ const router = createRouter({
       path: '/inversiones',
       name: 'Inversiones',
       component: () => import('../views/Proyectos/ListaProyectosPublico.vue'),
-      meta: { title: 'Loft2Live - Proyectos de inversión' },
+      meta: {
+        title: 'Loft2Live - Proyectos de inversión en lofts',
+        description: 'Conoce los proyectos de inversión disponibles. Invierte o alquila con Flexliving y ventajas fiscales.',
+      },
     },
     {
       path: '/inversiones/:id',
       name: 'InversionesDetalle',
       component: () => import('../views/Proyectos/DetalleProyecto.vue'),
-      meta: { title: 'Loft2Live - Detalle del proyecto' },
+      meta: {
+        title: 'Loft2Live - Detalle del proyecto',
+        description: 'Detalle del proyecto de inversión: precios, lofts, fotos y documentación.',
+      },
     },
     { path: '/alquileres', redirect: '/' },
     { path: '/alquileres/temporada', redirect: '/' },
@@ -414,15 +422,27 @@ const router = createRouter({
       path: '/blog',
       name: 'Blog',
       component: () => import('../views/Landing/BlogPage.vue'),
-      meta: { title: 'Loft2Live - Blog' },
+      meta: {
+        title: 'Loft2Live - Blog | Flexliving e inversión',
+        description: 'Artículos sobre inversión en lofts, Flex Use, ventajas fiscales y estilo de vida flexible.',
+      },
     },
   ],
 })
 
 export default router
 
+const defaultDescription = 'Loft2Live: plataforma de inversión y alquiler flexible en lofts. Grupo Vihorev.'
+
 router.beforeEach(async (to, from, next) => {
-  document.title = (to.meta.title as string) ?? 'Loft2live'
+  document.title = (to.meta.title as string) ?? 'Loft2Live'
+  const desc = (to.meta.description as string) ?? defaultDescription
+  let metaDesc = document.querySelector('meta[name="description"]')
+  if (metaDesc) metaDesc.setAttribute('content', desc)
+  const canonical = document.querySelector('#canonical-url') as HTMLLinkElement | null
+  if (canonical && window.location.origin) {
+    canonical.href = window.location.origin + (import.meta.env.BASE_URL === '/' ? to.fullPath : import.meta.env.BASE_URL + to.fullPath)
+  }
 
   const { isAuthenticated, isAdmin, isInquilino, isComprador, perfilRol, loading, waitUntilReady } = useAuth()
   if (loading.value) {

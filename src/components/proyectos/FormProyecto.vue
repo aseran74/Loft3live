@@ -373,11 +373,11 @@
       </div>
       <div v-if="(formData.fotos_oficina_actual?.length ?? 0) > 0 || uploadedPhotosOficinaActual.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         <div v-for="(photo, index) in (formData.fotos_oficina_actual || [])" :key="`oa-e-${index}`" class="relative group">
-          <img :src="getPhotoUrl(photo)" alt="" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="getPhotoUrl(photo)" :alt="`Oficina antes de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="removeExistingPhotoIn('fotos_oficina_actual', index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
         <div v-for="(photo, index) in uploadedPhotosOficinaActual" :key="`oa-n-${index}`" class="relative group">
-          <img :src="photo.preview" alt="" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="photo.preview" :alt="`Nueva foto oficina antes de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="uploadedPhotosOficinaActual.splice(index, 1)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
       </div>
@@ -392,11 +392,11 @@
       </div>
       <div v-if="(formData.fotos_oficina_remodelada?.length ?? 0) > 0 || uploadedPhotosOficinaRemodelada.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         <div v-for="(photo, index) in (formData.fotos_oficina_remodelada || [])" :key="`or-e-${index}`" class="relative group">
-          <img :src="getPhotoUrl(photo)" alt="" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="getPhotoUrl(photo)" :alt="`Loft después de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="removeExistingPhotoIn('fotos_oficina_remodelada', index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
         <div v-for="(photo, index) in uploadedPhotosOficinaRemodelada" :key="`or-n-${index}`" class="relative group">
-          <img :src="photo.preview" alt="" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="photo.preview" :alt="`Nueva foto loft después de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="uploadedPhotosOficinaRemodelada.splice(index, 1)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
       </div>
@@ -411,11 +411,11 @@
       </div>
       <div v-if="uploadedPhotos.length > 0 || existingPhotos.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         <div v-for="(photo, index) in existingPhotos" :key="`e-${index}`" class="relative group">
-          <img :src="getPhotoUrl(photo)" :alt="`Foto ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="getPhotoUrl(photo)" :alt="`Foto apartamento ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="removeExistingPhoto(index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
         <div v-for="(photo, index) in uploadedPhotos" :key="`n-${index}`" class="relative group">
-          <img :src="photo.preview" :alt="`Nueva ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="photo.preview" :alt="`Nueva foto apartamento ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="removePhoto(index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
       </div>
@@ -430,11 +430,11 @@
       </div>
       <div v-if="(formData.fotos_instalaciones_comunes?.length ?? 0) > 0 || uploadedPhotosInstalaciones.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         <div v-for="(photo, index) in (formData.fotos_instalaciones_comunes || [])" :key="`in-e-${index}`" class="relative group">
-          <img :src="getPhotoUrl(photo)" alt="" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="getPhotoUrl(photo)" :alt="`Instalaciones comunes ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="removeExistingPhotoIn('fotos_instalaciones_comunes', index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
         <div v-for="(photo, index) in uploadedPhotosInstalaciones" :key="`in-n-${index}`" class="relative group">
-          <img :src="photo.preview" alt="" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="photo.preview" :alt="`Nueva foto instalaciones comunes ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="uploadedPhotosInstalaciones.splice(index, 1)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
       </div>

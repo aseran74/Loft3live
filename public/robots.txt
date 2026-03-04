@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /comprador/
+Disallow: /inquilino/
+Disallow: /visitante/
+Disallow: /dashboard
+Disallow: /profile
+
+# Sitemap (reemplaza con tu dominio en producción)
+Sitemap: https://loft2live.com/sitemap.xml

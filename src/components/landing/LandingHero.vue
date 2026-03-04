@@ -11,10 +11,10 @@ const videoEnded = ref(false)
 const scrollProgress = ref(0)
 
 // Hero4: video y frames en public/images/images/Hero4/
-const HERO_VIDEO = '/images/images/Hero4/Hero4.mp4'
-const HERO_FRAME_BASE = '/images/images/Hero4/Whisk_mdnzmmy1ytomn2y30inidtotqdm4qtlzign10yn (1)_'
+const HERO_VIDEO = '/images/images/Hero4/hero-landing-video.mp4'
+const HERO_FRAME_BASE = '/images/images/Hero4/hero-frame-'
 const heroFrameUrls = Array.from({ length: 82 }, (_, i) =>
-  encodeURI(`${HERO_FRAME_BASE}${String(i).padStart(3, '0')}.webp`)
+  `${HERO_FRAME_BASE}${String(i).padStart(3, '0')}.webp`
 )
 
 // Dos capas para crossfade suave entre frames
@@ -108,13 +108,13 @@ onUnmounted(() => {
       <img
         v-show="!videoEnded"
         :src="heroFrameUrls[0]"
-        alt=""
+        alt="Loft2Live - Espacio flexible para vivir y trabajar"
         class="hero-media hero-image-desktop"
       />
       <img
         v-show="!videoEnded"
         :src="heroFrameUrls[0]"
-        alt=""
+        alt="Loft2Live - Espacio flexible para vivir y trabajar"
         class="hero-media hero-image-mobile-tablet"
       />
 
@@ -123,6 +123,7 @@ onUnmounted(() => {
         <img
           :src="frameAUrl"
           alt=""
+          role="presentation"
           class="hero-media hero-frame hero-frame-a"
           :class="{ 'hero-frame-visible': activeFrameLayer === 'a' }"
           loading="eager"
@@ -130,18 +131,19 @@ onUnmounted(() => {
         <img
           :src="frameBUrl"
           alt=""
+          role="presentation"
           class="hero-media hero-frame hero-frame-b"
           :class="{ 'hero-frame-visible': activeFrameLayer === 'b' }"
           loading="eager"
         />
         <div class="hero-text-block z-10">
-          <p
-            class="hero-subtitle"
+          <h1
+            class="hero-subtitle hero-title"
             :style="{ opacity: textOpacity }"
           >
             <span class="hero-subtitle-line">Donde el espacio</span>
             <span class="hero-subtitle-line">trabaja para ti</span>
-          </p>
+          </h1>
           <div class="hero-ctas" :style="{ opacity: textOpacity }">
             <a href="#como-funciona" class="hero-cta hero-cta-primary text-white">
               ¿Cómo funciona?

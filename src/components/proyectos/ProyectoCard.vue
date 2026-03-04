@@ -4,7 +4,7 @@
     <div v-if="coverUrl" class="h-64 sm:h-72 w-full bg-gray-100 dark:bg-gray-700 overflow-hidden relative group">
       <img
         :src="coverUrl"
-        :alt="proyecto.nombre_proyecto"
+        :alt="`Proyecto ${proyecto.nombre_proyecto} - Imagen de portada`"
         class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         loading="lazy"
       />
