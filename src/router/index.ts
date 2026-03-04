@@ -394,7 +394,18 @@ const router = createRouter({
       component: () => import('../views/Admin/SolicitudesInfo.vue'),
       meta: { title: 'Solicitudes de información' },
     },
-    { path: '/inversiones', redirect: { path: '/', hash: '#oportunidades' } },
+    {
+      path: '/inversiones',
+      name: 'Inversiones',
+      component: () => import('../views/Proyectos/ListaProyectosPublico.vue'),
+      meta: { title: 'Loft2Live - Proyectos de inversión' },
+    },
+    {
+      path: '/inversiones/:id',
+      name: 'InversionesDetalle',
+      component: () => import('../views/Proyectos/DetalleProyecto.vue'),
+      meta: { title: 'Loft2Live - Detalle del proyecto' },
+    },
     { path: '/alquileres', redirect: '/' },
     { path: '/alquileres/temporada', redirect: '/' },
     { path: '/alquileres/corta-estancia', redirect: '/' },
@@ -411,7 +422,7 @@ const router = createRouter({
 export default router
 
 router.beforeEach(async (to, from, next) => {
-  document.title = `Vue.js ${to.meta.title ?? 'App'} | TailAdmin - Vue.js Tailwind CSS Dashboard Template`
+  document.title = (to.meta.title as string) ?? 'Loft2live'
 
   const { isAuthenticated, isAdmin, isInquilino, isComprador, perfilRol, loading, waitUntilReady } = useAuth()
   if (loading.value) {
@@ -431,6 +442,11 @@ router.beforeEach(async (to, from, next) => {
   }
 
   if (to.path === '/blog') {
+    next()
+    return
+  }
+
+  if (to.path === '/inversiones' || to.path.startsWith('/inversiones/')) {
     next()
     return
   }

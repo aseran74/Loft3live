@@ -100,8 +100,8 @@
           Invertir ahora
         </button>
         <router-link
-          :to="`/proyectos/${proyecto.id}`"
-          class="px-6 py-3.5 border-2 rounded-xl transition-all font-bold hover:bg-gray-50 text-center border-gray-200 text-gray-900"
+          :to="`${detailBasePath}/${proyecto.id}`"
+          class="px-6 py-3.5 border-2 rounded-xl transition-all font-bold hover:bg-gray-50 text-center border-gray-200 text-gray-900 dark:border-gray-600 dark:hover:bg-gray-800 dark:text-white"
         >
           Ver detalles
         </router-link>
@@ -134,11 +134,16 @@ import { computed } from 'vue'
 import type { Proyecto } from '@/types/proyecto'
 import { getPhotoUrl } from '@/utils/storage'
 
-const props = defineProps<{
-  proyecto: Proyecto
-  /** En true oculta botones Editar/Eliminar (vista pública landing) */
-  public?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    proyecto: Proyecto
+    /** En true oculta botones Editar/Eliminar (vista pública) */
+    public?: boolean
+    /** Base path para el enlace "Ver detalles" (ej. /inversiones o /proyectos) */
+    detailBasePath?: string
+  }>(),
+  { detailBasePath: '/proyectos' }
+)
 
 defineEmits<{
   invertir: [proyecto: Proyecto]

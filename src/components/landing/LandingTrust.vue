@@ -34,7 +34,10 @@
       </div>
 
       <!-- Hero Stats -->
-      <div class="hero-stats trust-stats">
+      <div v-if="loading" class="hero-stats trust-stats text-gray-500 text-center py-8">
+        Cargando estadísticas...
+      </div>
+      <div v-else class="hero-stats trust-stats">
         <div class="stat-card" v-for="stat in heroStats" :key="stat.label">
           <div class="stat-icon">{{ stat.icon }}</div>
           <div class="stat-value">
@@ -48,7 +51,7 @@
       </div>
 
       <!-- Detailed Cards -->
-      <div class="detail-grid trust-table">
+      <div v-if="!loading" class="detail-grid trust-table">
         <!-- Phase Cards -->
         <div
           class="phase-card"
@@ -92,7 +95,7 @@
           <div class="total-divider"></div>
           <div class="total-highlight">
             <span>Rentabilidad potencial</span>
-            <span class="roi">+29.8%</span>
+            <span class="roi">+{{ roiPercent }}%</span>
           </div>
         </div>
       </div>
@@ -102,62 +105,23 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+import { fetchLandingTrustStats } from '@/utils/landingTrustStats'
+import type { HeroStat, Phase, TotalItem } from '@/utils/landingTrustStats'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const heroStats = [
-  { icon: '👥', value: 121, suffix: '+', label: 'Inversores activos', barWidth: '82%' },
-  { icon: '💶', value: 8, suffix: 'M€', label: 'Capital elevado', barWidth: '60%' },
-  { icon: '🏗️', value: 1, suffix: '', label: 'Proyectos financiados', barWidth: '20%' },
-  { icon: '📈', value: 8, suffix: 'M€', label: 'Valor bruto total', barWidth: '60%' },
-]
-
-const phases = [
-  {
-    title: 'Completadas',
-    color: 'green',
-    units: 115,
-    metrics: [
-      { label: 'Superficie', value: '7,096 m²' },
-      { label: 'Coste inversión', value: '11.84M €' },
-    ],
-    grossValue: '17.00M €',
-  },
-  {
-    title: 'En operación',
-    color: 'blue',
-    units: 197,
-    metrics: [
-      { label: 'Superficie', value: '9,040 m²' },
-      { label: 'Coste inversión', value: '35.60M €' },
-    ],
-    grossValue: '44.60M €',
-  },
-  {
-    title: 'En construcción',
-    color: 'orange',
-    units: 60,
-    metrics: [
-      { label: 'Superficie', value: '9,822 m²' },
-      { label: 'Coste inversión', value: '16.30M €' },
-    ],
-    grossValue: '21.17M €',
-  },
-]
-
-const totalItems = [
-  { value: '472', label: 'Unidades' },
-  { value: '25,958 m²', label: 'Superficie' },
-  { value: '63.74M €', label: 'Coste inversión' },
-  { value: '82.77M €', label: 'Valor bruto' },
-]
+const loading = ref(true)
+const heroStats = ref<HeroStat[]>([])
+const phases = ref<Phase[]>([])
+const totalItems = ref<TotalItem[]>([])
+const roiPercent = ref('29.8')
 
 let ctx: gsap.Context | undefined
 
-onMounted(() => {
+function runAnimations() {
   ctx = gsap.context(() => {
     // Header animation
     gsap.fromTo('.trust-header > *',
@@ -213,6 +177,22 @@ onMounted(() => {
       }
     )
   })
+}
+
+onMounted(async () => {
+  try {
+    const stats = await fetchLandingTrustStats(true)
+    heroStats.value = stats.heroStats
+    phases.value = stats.phases
+    totalItems.value = stats.totalItems
+    roiPercent.value = stats.roiPercent
+  } catch (e) {
+    console.warn('[LandingTrust] Error cargando estadísticas:', e)
+  } finally {
+    loading.value = false
+  }
+  await nextTick()
+  runAnimations()
 })
 
 onUnmounted(() => {

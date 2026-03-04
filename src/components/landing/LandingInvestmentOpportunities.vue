@@ -27,15 +27,15 @@
           <ProyectoCard
             :proyecto="proyecto"
             public
+            detail-base-path="/inversiones"
             @invertir="handleInvertir"
-            @ver-detalles="handleVerDetalles"
           />
         </div>
       </div>
 
       <div v-if="!loading && proyectos.length > 4" class="mt-12 text-center opacity-0" id="oportunidades-btn">
         <router-link
-          to="/proyectos"
+          to="/inversiones"
           class="inline-flex items-center justify-center px-8 py-4 rounded-xl text-lg font-semibold text-white bg-brand-500 hover:opacity-90 shadow-xl shadow-brand-500/30 transition-all hover:-translate-y-1"
         >
           Ver todos los proyectos
@@ -127,11 +127,6 @@ onUnmounted(() => {
 const handleInvertir = (proyecto: Proyecto) => {
   // Público: pedimos login para invertir
   router.push('/signin')
-}
-
-const handleVerDetalles = (proyecto: Proyecto) => {
-  if (!proyecto.id) return
-  router.push(`/proyectos/${proyecto.id}`)
 }
 
 async function load() {

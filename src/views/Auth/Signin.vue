@@ -239,6 +239,26 @@
                     </div>
                   </div>
                 </form>
+
+                <!-- Acceso demo -->
+                <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+                  <p class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Acceso demo</p>
+                  <p class="mb-3 text-xs text-gray-500 dark:text-gray-400">
+                    Usa cualquier cuenta y contraseña: <code class="rounded bg-gray-200 px-1.5 py-0.5 dark:bg-gray-700">123456</code>
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    <button
+                      v-for="demo in demos"
+                      :key="demo.email"
+                      type="button"
+                      class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-xs font-medium text-gray-700 shadow-sm transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-brand-600 dark:hover:bg-brand-900/30 dark:hover:text-brand-300"
+                      @click="fillDemo(demo.email)"
+                    >
+                      {{ demo.label }}
+                    </button>
+                  </div>
+                </div>
+
                 <div class="mt-5">
                   <p
                     class="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start"
@@ -295,12 +315,27 @@ const sessionExpiredMessage = computed(() =>
   route.query.expired === '1' ? 'Tu sesión ha caducado. Inicia sesión de nuevo.' : ''
 )
 
+const DEMO_PASSWORD = '123456'
+
+const demos = [
+  { email: 'Admin@test.com', label: 'Admin' },
+  { email: 'Propietario@test.com', label: 'Propietario' },
+  { email: 'Inquilino@test.com', label: 'Inquilino' },
+  { email: 'Visitante@test.com', label: 'Visitante' },
+]
+
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
 const keepLoggedIn = ref(false)
 const submitting = ref(false)
 const authError = ref('')
+
+function fillDemo(demoEmail: string) {
+  email.value = demoEmail
+  password.value = DEMO_PASSWORD
+  authError.value = ''
+}
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value

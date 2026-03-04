@@ -1,8 +1,8 @@
 <template>
-  <admin-layout>
+  <component :is="layoutComponent">
   <div
     class="p-4 sm:p-6"
-    :class="{ 'pt-24': topPadding }"
+    :class="{ 'pt-24': topPadding || isPublicRoute }"
     style="background-color: #F2F2F2"
   >
     <div class="max-w-7xl mx-auto">
@@ -368,8 +368,8 @@
                 </div>
               </div>
 
-              <!-- Instalaciones reservables (las mismas que en Reserva instalaciones) -->
-              <InstalacionesReservablesProyecto v-if="proyecto?.id" :proyecto-id="proyecto.id" />
+              <!-- Instalaciones reservables (solo en panel admin; oculto en vista pública) -->
+              <InstalacionesReservablesProyecto v-if="proyecto?.id && !isPublicRoute" :proyecto-id="proyecto.id" />
 
               <!-- Mapa de localización -->
               <div v-if="proyecto.localizacion" class="mt-6">
@@ -470,8 +470,8 @@
                 </div>
               </div>
 
-              <!-- Acciones -->
-              <div class="flex flex-col gap-3">
+              <!-- Acciones (solo en panel admin) -->
+              <div v-if="!isPublicRoute" class="flex flex-col gap-3">
                 <button
                   @click="editProyecto"
                   class="w-full px-6 py-3 text-white rounded-lg transition-colors font-semibold hover:opacity-90"
@@ -745,13 +745,14 @@
       </div>
     </div>
   </Teleport>
-  </admin-layout>
+  </component>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AdminLayout from '@/components/layout/AdminLayout.vue'
+import PublicPageLayout from '@/components/layout/PublicPageLayout.vue'
 import type { Proyecto } from '@/types/proyecto'
 import { insforge } from '@/lib/insforge'
 import { getPhotoUrl } from '@/utils/storage'
@@ -773,12 +774,14 @@ const props = withDefaults(
   }
 )
 
-const backTo = computed(() => props.backTo)
-const backLabel = computed(() => props.backLabel)
-const topPadding = computed(() => props.topPadding)
-
 const route = useRoute()
 const router = useRouter()
+
+const isPublicRoute = computed(() => route.path.startsWith('/inversiones'))
+const layoutComponent = computed(() => (isPublicRoute.value ? PublicPageLayout : AdminLayout))
+const backTo = computed(() => (isPublicRoute.value ? '/inversiones' : (props.backTo ?? '/proyectos')))
+const backLabel = computed(() => (isPublicRoute.value ? 'Volver a inversiones' : (props.backLabel ?? 'Volver a proyectos')))
+const topPadding = computed(() => props.topPadding)
 
 const proyecto = ref<Proyecto | null>(null)
 const loading = ref(true)
