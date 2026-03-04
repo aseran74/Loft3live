@@ -73,11 +73,10 @@ Recomendación: crear una imagen **1200×630 px** (og estándar) con logo y text
 - **`public/sitemap.xml`** se genera en cada build con `npm run sitemap` (también se ejecuta al hacer `npm run build`).
 - **`scripts/generate-sitemap.js`**: incluye `/`, `/inversiones`, `/blog`, `/signin`, `/signup`. La URL base se toma de `SITE_URL` o `VITE_SITE_URL` (por defecto `https://loft2live.com`). Para producción: `SITE_URL=https://tudominio.com npm run build`.
 
-### Pre-render
-- **vite-plugin-prerender** (con Puppeteer) pre-renderiza en build las rutas públicas para que los crawlers reciban HTML ya renderizado.
-- Rutas pre-renderizadas: `/`, `/inversiones`, `/blog`.
-- En `App.vue` se dispara el evento `render-event` cuando la vista está lista; el plugin espera ese evento (o 3 s como respaldo) antes de guardar el HTML.
-- Requiere Puppeteer instalado (el plugin lo instala como dependencia). Si en CI no quieres pre-render, puedes desactivar el plugin en `vite.config.ts` o usar una variable de entorno.
+### Pre-render (desactivado en build)
+- El plugin **vite-plugin-prerender** está desactivado en `vite.config.ts` porque usa CommonJS (`require`) y falla en entornos ESM (p. ej. Vercel). Además Puppeteer no es adecuado en serverless.
+- El SEO sigue apoyado en: **sitemap**, **robots.txt**, **meta/canonical por ruta** y **H1/alt**.
+- Si en el futuro quieres pre-render en local, puedes usar un script aparte con Puppeteer contra la build estática; el evento `render-event` en `App.vue` queda por si se rehabilita el plugin en otro entorno.
 
 ## 6. Resumen de archivos tocados
 
