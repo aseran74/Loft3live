@@ -208,6 +208,7 @@
       >
         <div class="w-full max-w-lg rounded-2xl bg-white p-5 shadow-xl dark:bg-gray-800">
           <h3 class="mb-4 text-lg font-semibold">{{ editandoAnuncio ? 'Editar entrada' : 'Nueva entrada en el tablón' }}</h3>
+          <div v-if="error" class="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/20 dark:text-red-400">{{ error }}</div>
           <div class="grid grid-cols-1 gap-4">
             <div>
               <label class="mb-2 block text-sm font-medium">Proyecto (opcional)</label>
@@ -488,6 +489,7 @@ async function eliminarMensaje(m: MensajeEnviado) {
 }
 
 function abrirModalAnuncio(a: Anuncio | null) {
+  error.value = ''
   editandoAnuncio.value = a
   formAnuncio.value = a
     ? {
@@ -512,23 +514,32 @@ async function guardarAnuncio() {
   success.value = ''
   guardandoAnuncio.value = true
   try {
-    const payload = {
+    const payload: Record<string, unknown> = {
       proyecto_id: formAnuncio.value.proyecto_id || null,
       tipo: formAnuncio.value.tipo,
       titulo: formAnuncio.value.titulo.trim(),
       contenido: formAnuncio.value.contenido.trim(),
       fecha_desde: formAnuncio.value.fecha_desde || null,
       fecha_hasta: formAnuncio.value.fecha_hasta || null,
-      updated_at: new Date().toISOString(),
     }
     if (editandoAnuncio.value) {
-      await insforge.database.from('tablon_anuncios').update(payload).eq('id', editandoAnuncio.value.id)
+      payload.updated_at = new Date().toISOString()
+      const { error: err } = await insforge.database.from('tablon_anuncios').update(payload).eq('id', editandoAnuncio.value.id)
+      if (err) {
+        error.value = (err as { message?: string })?.message ?? 'Error al actualizar la entrada'
+        return
+      }
       success.value = 'Entrada actualizada.'
     } else {
-      await insforge.database.from('tablon_anuncios').insert(payload)
+      const { error: err } = await insforge.database.from('tablon_anuncios').insert(payload)
+      if (err) {
+        error.value = (err as { message?: string })?.message ?? 'Error al publicar en el tablón'
+        return
+      }
       success.value = 'Entrada publicada en el tablón.'
     }
     cerrarModalAnuncio()
+    filtroTablonProyecto.value = ''
     await cargarTablon()
   } catch (e: unknown) {
     error.value = e instanceof Error ? e.message : 'Error guardando'
