@@ -155,8 +155,8 @@ defineEmits<{
 const coverUrl = computed(() => {
   const p = props.proyecto
   const path =
-    p?.fotos?.[0] ??
     p?.fotos_oficina_remodelada?.[0] ??
+    p?.fotos?.[0] ??
     p?.fotos_oficina_actual?.[0]
   if (!path) return ''
   return getPhotoUrl(path)

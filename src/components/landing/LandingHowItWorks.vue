@@ -7,11 +7,10 @@
           Donde el espacio <span class="text-brand-500">trabaja para ti</span>
         </h2>
         <p class="text-xl max-w-3xl mx-auto leading-relaxed text-gray-900">
-          Transformamos oficinas infrautilizadas en espacios híbridos para vivir y trabajar, con un modelo flexible, legal y eficiente a nivel fiscal.
-        </p>
-        <p class="text-lg max-w-3xl mx-auto mt-6 text-gray-900">
-          No es solo un sitio donde dormir o currar.<br />
-          Es una forma de moverte, optimizar impuestos y hacer que tu dinero rinda.
+           Somos la primera plataforma de Crowfounding inmobiliario especializada <br>
+            en convertir oficinas vacias en apartamentos de Flexliving. 
+          <br />
+        
         </p>
         <p class="text-base max-w-2xl mx-auto mt-6 text-brand-500 font-semibold">
           Ha llegado la revolución al Flexliving.
@@ -86,7 +85,21 @@
             <div class="step-number">1</div>
           </div>
           <h3 class="step-title">Cómo entrar</h3>
-          <p class="step-description">Tres niveles según tu implicación: alquiler flexible sin inversión, Socio Flex desde 5.000€ (participas en ingresos y descuentos sin comprar un inmueble entero), o compra directa de un loft con control total.</p>
+          <p class="step-description mb-3">Tres niveles según tu implicación:</p>
+          <ul class="niveles-list">
+            <li>
+              <strong class="nivel-label">Alquiler flexible sin inversión</strong>
+              <span class="nivel-desc">Entras a vivir y trabajar sin desembolsar capital.</span>
+            </li>
+            <li>
+              <strong class="nivel-label">Socio Flex desde 5.000€</strong>
+              <span class="nivel-desc">Compra un ticket y ten una participación del inmueble; participas en los ingresos y aprovéchate de descuentos para alojarte.</span>
+            </li>
+            <li>
+              <strong class="nivel-label">Compra directa de un apartamento</strong>
+              <span class="nivel-desc">Control total del mismo.</span>
+            </li>
+          </ul>
         </div>
 
         <!-- 2 -->
@@ -479,6 +492,42 @@ onMounted(() => {
 .step-description strong {
   color: var(--color-primary);
   font-weight: 600;
+}
+
+.niveles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.niveles-list li {
+  padding: 1rem 1.25rem;
+  background: var(--color-gray-50);
+  border-radius: 0.75rem;
+  border-left: 4px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.dark .niveles-list li {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nivel-label {
+  color: var(--color-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: block;
+}
+
+.nivel-desc {
+  color: var(--color-muted-foreground);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .step-list {

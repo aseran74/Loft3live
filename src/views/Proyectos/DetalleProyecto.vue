@@ -72,45 +72,51 @@
             </div>
           </div>
 
-          <!-- 1. Fotos antes de la reforma (oficina) -->
-          <div v-if="proyecto.fotos_oficina_actual?.length > 0" class="mb-8">
-            <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Fotos antes de la reforma (oficina)</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              <div
-                v-for="(photo, idx) in proyecto.fotos_oficina_actual"
-                :key="'actual-' + idx"
-                class="rounded-xl overflow-hidden border-2 shadow-md cursor-pointer"
-                style="border-color: #C8D9B0"
-                @click="openReformaLightbox(idx, 'actual')"
-              >
-                <div class="aspect-[4/3] bg-gray-100">
-                  <img
-                    :src="getPhotoUrl(photo)"
-                    :alt="`Oficina antes reforma - ${proyecto.nombre_proyecto}`"
-                    class="w-full h-full object-cover"
-                  />
+          <!-- Fotos antes y después de la reforma (lado a lado en desktop) -->
+          <div
+            v-if="(proyecto.fotos_oficina_actual?.length > 0) || (proyecto.fotos_oficina_remodelada?.length > 0)"
+            :class="(proyecto.fotos_oficina_actual?.length > 0) && (proyecto.fotos_oficina_remodelada?.length > 0) ? 'grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8' : 'mb-8'"
+          >
+            <!-- 1. Fotos antes de la reforma (oficina) -->
+            <div v-if="proyecto.fotos_oficina_actual?.length > 0">
+              <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Fotos antes de la reforma (oficina)</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div
+                  v-for="(photo, idx) in proyecto.fotos_oficina_actual"
+                  :key="'actual-' + idx"
+                  class="rounded-xl overflow-hidden border-2 shadow-md cursor-pointer"
+                  style="border-color: #C8D9B0"
+                  @click="openReformaLightbox(idx, 'actual')"
+                >
+                  <div class="aspect-[4/3] bg-gray-100">
+                    <img
+                      :src="getPhotoUrl(photo)"
+                      :alt="`Oficina antes reforma - ${proyecto.nombre_proyecto}`"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- 2. Fotos después de la reforma (convertido en loft) -->
-          <div v-if="proyecto.fotos_oficina_remodelada?.length > 0" class="mb-8">
-            <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Fotos después de la reforma (convertido en loft)</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              <div
-                v-for="(photo, idx) in proyecto.fotos_oficina_remodelada"
-                :key="'remodelada-' + idx"
-                class="rounded-xl overflow-hidden border-2 shadow-md cursor-pointer"
-                style="border-color: #C8D9B0"
-                @click="openReformaLightbox(idx, 'remodelada')"
-              >
-                <div class="aspect-[4/3] bg-gray-100">
-                  <img
-                    :src="getPhotoUrl(photo)"
-                    :alt="`Loft después reforma - ${proyecto.nombre_proyecto}`"
-                    class="w-full h-full object-cover"
-                  />
+            <!-- 2. Fotos después de la reforma (convertido en loft) -->
+            <div v-if="proyecto.fotos_oficina_remodelada?.length > 0">
+              <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Fotos después de la reforma (convertido en loft)</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div
+                  v-for="(photo, idx) in proyecto.fotos_oficina_remodelada"
+                  :key="'remodelada-' + idx"
+                  class="rounded-xl overflow-hidden border-2 shadow-md cursor-pointer"
+                  style="border-color: #C8D9B0"
+                  @click="openReformaLightbox(idx, 'remodelada')"
+                >
+                  <div class="aspect-[4/3] bg-gray-100">
+                    <img
+                      :src="getPhotoUrl(photo)"
+                      :alt="`Loft después reforma - ${proyecto.nombre_proyecto}`"
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

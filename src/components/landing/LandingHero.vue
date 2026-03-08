@@ -10,10 +10,11 @@ const videoRef = ref<HTMLVideoElement | null>(null)
 const videoEnded = ref(false)
 const scrollProgress = ref(0)
 
-// Hero4: video y frames en public/images/images/Hero4/
+// Hero4: video y frames en public/images/images/Hero4/ (40 frames para transición más fluida)
 const HERO_VIDEO = '/images/images/Hero4/hero-landing-video.mp4'
 const HERO_FRAME_BASE = '/images/images/Hero4/hero-frame-'
-const heroFrameUrls = Array.from({ length: 82 }, (_, i) =>
+const HERO_FRAME_COUNT = 40
+const heroFrameUrls = Array.from({ length: HERO_FRAME_COUNT }, (_, i) =>
   `${HERO_FRAME_BASE}${String(i).padStart(3, '0')}.webp`
 )
 
@@ -137,7 +138,7 @@ onUnmounted(() => {
           loading="eager"
         />
         <div class="hero-text-block z-10">
-          <h1
+            <h1
             class="hero-subtitle hero-title"
             :style="{ opacity: textOpacity }"
           >

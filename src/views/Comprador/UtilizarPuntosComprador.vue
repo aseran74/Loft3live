@@ -196,12 +196,15 @@
         </template>
       </div>
 
-      <!-- Cards de disponibilidad (por proyecto o todas si "Fechas disponibles") -->
+      <!-- Cards de disponibilidad (por proyecto, por fechas o "Fechas disponibles") -->
       <div ref="cardsRef" class="mb-6">
-        <div v-if="filtroProyectoId || mostrarFechasDisponibles" class="mb-6">
+        <div v-if="filtroProyectoId || mostrarFechasDisponibles || tieneRangoValido" class="mb-6">
           <p class="mb-3 text-sm font-medium text-gray-600 dark:text-gray-400">
             <template v-if="mostrarFechasDisponibles">
               Todas las fechas disponibles ({{ opcionesParaCards.length }} opciones). Elige una y luego indica tu rango de fechas.
+            </template>
+            <template v-else-if="tieneRangoValido && !filtroProyectoId">
+              Disponibilidades en tu rango de fechas ({{ opcionesParaCards.length }} opciones). Elige un loft para reservar.
             </template>
             <template v-else>
               {{ tieneRangoValido ? 'Disponibilidades en tu rango de fechas' : 'Disponibilidades · Elige un rango de fechas para ver disponibilidad y precio' }}
@@ -210,6 +213,9 @@
           <div v-if="opcionesParaCards.length === 0" class="rounded-xl border border-dashed border-gray-300 bg-gray-50 py-8 text-center text-sm text-gray-500 dark:border-gray-600 dark:bg-gray-800/50 dark:text-gray-400">
             <template v-if="mostrarFechasDisponibles">
               No hay disponibilidades{{ filtroLocalidad ? ' en esta localidad' : '' }}.
+            </template>
+            <template v-else-if="tieneRangoValido && !filtroProyectoId">
+              No hay disponibilidad para las fechas elegidas{{ filtroLocalidad ? ' en esta localidad' : '' }}. Prueba otro rango o localidad.
             </template>
             <template v-else-if="tieneRangoValido">
               No hay disponibilidad en este proyecto para las fechas elegidas{{ filtroLocalidad ? ' en esta localidad' : '' }}.
@@ -242,7 +248,7 @@
                 {{ etiquetaMotivo(p.tipo) }}
               </span>
             </div>
-            <p v-if="mostrarFechasDisponibles" class="mb-1 text-xs font-medium text-gray-700 dark:text-gray-300">
+            <p v-if="mostrarFechasDisponibles || (tieneRangoValido && !filtroProyectoId)" class="mb-1 text-xs font-medium text-gray-700 dark:text-gray-300">
               {{ p.proyecto_nombre }}{{ p.localidad ? ` · ${p.localidad}` : '' }}
             </p>
             <p class="text-xs text-gray-500 dark:text-gray-400">
@@ -510,9 +516,12 @@ const opcionesAMostrar = computed(() => {
   return opcionesDelProyecto.value
 })
 
-/** Si "Fechas disponibles" está activo, mostramos todas; si no, las del proyecto. */
+/** Si "Fechas disponibles" está activo, mostramos todas; si solo hay rango sin proyecto, las que coinciden con el rango; si no, las del proyecto. */
 const opcionesParaCards = computed(() => {
   if (mostrarFechasDisponibles.value) return periodosFiltrados.value
+  const { fecha_desde, fecha_hasta } = formSolicitud.value
+  if (tieneRangoValido.value && !filtroProyectoId.value && fecha_desde && fecha_hasta)
+    return periodosFiltrados.value.filter((p) => solapaConOpcion(fecha_desde, fecha_hasta, p))
   return opcionesAMostrar.value
 })
 
@@ -521,7 +530,7 @@ const cardsRef = ref<HTMLElement | null>(null)
 
 function seleccionarOpcion(p: PeriodoOtro) {
   formSolicitud.value.periodo_id = p.id
-  if (mostrarFechasDisponibles.value) filtroProyectoId.value = p.proyecto_id
+  if (mostrarFechasDisponibles.value || !filtroProyectoId.value) filtroProyectoId.value = p.proyecto_id
 }
 
 function precioParaOpcion(p: PeriodoOtro): number | null {
