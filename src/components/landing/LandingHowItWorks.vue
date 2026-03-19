@@ -74,8 +74,8 @@
           <p class="step-description mb-3">Tres formas de participar, según tu nivel de implicación:</p>
           <ul class="niveles-list niveles-list-entrar">
             <li>
-              <strong class="nivel-label">Acceso flexible sin inversión</strong>
-              <span class="nivel-desc">- Vive y trabaja en el espacio sin necesidad de aportar capital inicial.</span>
+              <strong class="nivel-label">Alquila sin inversión</strong>
+              <span class="nivel-desc">Vive y trabaja en el espacio sin necesidad de aportar capital inicial.</span>
             </li>
             <li>
               <strong class="nivel-label">Socio Flex (desde 5.000€)</strong>
