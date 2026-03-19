@@ -72,7 +72,7 @@
           </div>
           <h3 class="step-title">Cómo entrar</h3>
           <p class="step-description mb-3">Tres formas de participar, según tu nivel de implicación:</p>
-          <ul class="niveles-list">
+          <ul class="niveles-list niveles-list-entrar">
             <li>
               <strong class="nivel-label">Acceso flexible sin inversión</strong>
               <span class="nivel-desc">- Vive y trabaja en el espacio sin necesidad de aportar capital inicial.</span>
@@ -508,6 +508,10 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+}
+
+.niveles-list-entrar li {
+  border-left: 0;
 }
 
 .dark .niveles-list li {
