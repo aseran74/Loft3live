@@ -49,8 +49,8 @@ const router = createRouter({
       name: 'Home',
       component: () => import('../views/Landing/LandingPage.vue'),
       meta: {
-        title: 'Loft2Live - Inversión y alquiler flexible en lofts | Inicio',
-        description: 'Loft2Live: donde el espacio trabaja para ti. Inversión, alquiler flexible y Flex Use en lofts. Grupo Vihorev.',
+        title: 'Loft2Live - Inversión y alquiler flexible en apartamentos | Inicio',
+        description: 'Loft2Live: donde el espacio trabaja para ti. Inversión, alquiler flexible y Flex Use en apartamentos. Grupo Vihorev.',
       },
     },
     {
@@ -401,7 +401,7 @@ const router = createRouter({
       name: 'Inversiones',
       component: () => import('../views/Proyectos/ListaProyectosPublico.vue'),
       meta: {
-        title: 'Loft2Live - Proyectos de inversión en lofts',
+        title: 'Loft2Live - Proyectos de inversión en apartamentos',
         description: 'Conoce los proyectos de inversión disponibles. Invierte o alquila con Flexliving y ventajas fiscales.',
       },
     },
@@ -411,7 +411,7 @@ const router = createRouter({
       component: () => import('../views/Proyectos/DetalleProyecto.vue'),
       meta: {
         title: 'Loft2Live - Detalle del proyecto',
-        description: 'Detalle del proyecto de inversión: precios, lofts, fotos y documentación.',
+        description: 'Detalle del proyecto de inversión: precios, apartamentos, fotos y documentación.',
       },
     },
     { path: '/alquileres', redirect: '/' },
@@ -424,7 +424,7 @@ const router = createRouter({
       component: () => import('../views/Landing/BlogPage.vue'),
       meta: {
         title: 'Loft2Live - Blog | Flexliving e inversión',
-        description: 'Artículos sobre inversión en lofts, Flex Use, ventajas fiscales y estilo de vida flexible.',
+        description: 'Artículos sobre inversión en apartamentos, Flex Use, ventajas fiscales y estilo de vida flexible.',
       },
     },
   ],
@@ -432,7 +432,7 @@ const router = createRouter({
 
 export default router
 
-const defaultDescription = 'Loft2Live: plataforma de inversión y alquiler flexible en lofts. Grupo Vihorev.'
+const defaultDescription = 'Loft2Live: plataforma de inversión y alquiler flexible en apartamentos. Grupo Vihorev.'
 
 router.beforeEach(async (to, from, next) => {
   document.title = (to.meta.title as string) ?? 'Loft2Live'

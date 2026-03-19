@@ -33,7 +33,7 @@
               Imagina que eres un profesional o empresa que factura 80.000 € al año. Sin una estrategia inmobiliaria inteligente, tu base imponible es muy alta y terminas pagando un porcentaje elevado en impuestos.
             </p>
             <p class="savings-intro-text">
-              Con nuestro modelo de Smart Loft, transformas tu gasto de vida en un escudo fiscal.
+              Con nuestro modelo de Apartamento Smart, transformas tu gasto de vida en un escudo fiscal.
             </p>
           </div>
 
@@ -45,7 +45,7 @@
             <div class="savings-subblock">
               <h4 class="savings-subtitle">Alquiler con nosotros</h4>
               <p>De esos 80.000 €, restas 12.000 € de la oficina y el 30% de la vivienda. Ahora Hacienda solo te calcula impuestos sobre ~67.280 € en lugar de 80.000 €.</p>
-              <p class="savings-result"><strong>Resultado:</strong> Te ahorras unos 4.400 € al año en IRPF. Es como si el loft te costara 4 meses menos al año.</p>
+              <p class="savings-result"><strong>Resultado:</strong> Te ahorras unos 4.400 € al año en IRPF. Es como si el apartamento te costara 4 meses menos al año.</p>
             </div>
 
             <div class="savings-subblock">
@@ -87,7 +87,7 @@
                   <tr>
                     <th>Concepto</th>
                     <th>Sin nuestro modelo</th>
-                    <th>Con Smart Loft 80/20</th>
+                    <th>Con Apartamento Smart 80/20</th>
                   </tr>
                 </thead>
                 <tbody>

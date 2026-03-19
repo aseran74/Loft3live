@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-      Reservas de compradores que usan puntos para estancias en lofts. Aprobadas por defecto.
+      Reservas de compradores que usan puntos para estancias en apartamentos. Aprobadas por defecto.
     </p>
     <div v-if="loading" class="mt-4 py-4 text-center text-sm text-gray-500">Cargando…</div>
     <div v-else class="mt-4 space-y-3">
@@ -27,7 +27,7 @@
               · {{ r.dias_usados }} día(s) · <strong>{{ r.puntos }}</strong> puntos
             </p>
             <p v-if="r.propietario_loft != null" class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-              Loft {{ r.propietario_loft }}{{ r.proyecto_nombre ? (' · ' + r.proyecto_nombre) : '' }}
+              Apartamento {{ r.propietario_loft }}{{ r.proyecto_nombre ? (' · ' + r.proyecto_nombre) : '' }}
             </p>
           </div>
           <span class="inline-flex shrink-0 items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/40 dark:text-green-300">

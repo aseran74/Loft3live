@@ -5,6 +5,9 @@ export type InstalacionTipo =
   | 'sala_cine'
   | 'billar'
   | 'sala_reuniones'
+  | 'azotea_comunidad'
+  | 'espacio_podcasting'
+  | 'espacio_networking'
 
 export interface InstalacionDef {
   tipo: InstalacionTipo
@@ -20,6 +23,9 @@ export const instalacionesDef: InstalacionDef[] = [
   { tipo: 'sala_cine', label: 'Sala de Cine', duracionMinutos: 120, descripcion: 'Proyección y butacas' },
   { tipo: 'billar', label: 'Billar', duracionMinutos: 90, descripcion: 'Mesa de billar' },
   { tipo: 'sala_reuniones', label: 'Sala de Reuniones', duracionMinutos: 60, descripcion: 'Reuniones y videollamadas' },
+  { tipo: 'azotea_comunidad', label: 'Azotea comunidad', duracionMinutos: 120, descripcion: 'Zona azotea de uso común' },
+  { tipo: 'espacio_podcasting', label: 'Espacio podcasting', duracionMinutos: 60, descripcion: 'Cabina o sala para grabar podcasts' },
+  { tipo: 'espacio_networking', label: 'Espacio networking', duracionMinutos: 90, descripcion: 'Zona para eventos y networking' },
 ]
 
 export function getInstalacionByTipo(tipo: string): InstalacionDef | undefined {

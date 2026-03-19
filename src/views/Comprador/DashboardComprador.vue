@@ -141,7 +141,7 @@
         <div class="min-w-0 flex-1">
           <h3 class="font-semibold text-gray-900 dark:text-white">Utilizar puntos</h3>
           <p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
-            Usa tus puntos para solicitar estancias en lofts. Filtra por localidad y consulta el mapa.
+            Usa tus puntos para solicitar estancias en apartamentos. Filtra por localidad y consulta el mapa.
           </p>
           <span class="mt-3 inline-flex items-center text-sm font-medium text-violet-600 dark:text-violet-400 group-hover:underline">
             Ir a utilizar puntos

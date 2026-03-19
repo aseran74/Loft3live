@@ -74,7 +74,7 @@
               class="flex items-center gap-2 text-sm cursor-pointer"
             >
               <input v-model="form.destinatarios" type="checkbox" :value="otro.id" class="h-4 w-4" />
-              Loft {{ otro.loft_num }} · {{ otro.nombre }}
+              Apartamento {{ otro.loft_num }} · {{ otro.nombre }}
             </label>
             <p v-if="otrosInquilinos.length === 0" class="text-sm text-gray-500">No hay otros inquilinos en tu proyecto.</p>
           </div>

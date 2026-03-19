@@ -13,7 +13,7 @@
     <div class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
       <h2 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Nueva incidencia</h2>
       <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        Estás en <strong>{{ inquilino?.proyecto_nombre }}</strong>, Loft {{ inquilino?.loft_num }}.
+        Estás en <strong>{{ inquilino?.proyecto_nombre }}</strong>, Apartamento {{ inquilino?.loft_num }}.
       </p>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>

@@ -82,10 +82,10 @@
         />
       </div>
 
-      <!-- Nº de lofts -->
+      <!-- Nº de apartamentos -->
       <div>
         <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-gray-800 dark:text-gray-200">
-          Nº de lofts *
+          Nº de apartamentos *
         </label>
         <input
           v-model.number="formData.num_lofts"
@@ -94,6 +94,21 @@
           required
           class="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
         />
+      </div>
+
+      <!-- Nº de tickets (opcional: si está vacío se usa Nº de apartamentos) -->
+      <div>
+        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-gray-800 dark:text-gray-200">
+          Nº de tickets
+        </label>
+        <input
+          v-model.number="formData.num_tickets"
+          type="number"
+          min="0"
+          placeholder="Opcional: si vacío = Nº apartamentos"
+          class="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        />
+        <p class="mt-1 text-xs text-gray-500">Para cards y compradores. Si se deja vacío se usa el Nº de apartamentos.</p>
       </div>
 
       <!-- Desglose inversión -->
@@ -134,6 +149,18 @@
           </div>
         </div>
         <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-medium mb-1 text-gray-800 dark:text-gray-200">TIR preferente (%)</label>
+            <input
+              v-model.number="formData.tir_preferente"
+              type="number"
+              min="0"
+              max="100"
+              step="0.1"
+              placeholder="Ej. 8"
+              class="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            />
+          </div>
           <div class="rounded-lg border px-3 py-2 bg-gray-50 dark:bg-gray-700/50" style="border-color: #C8D9B0">
             <div class="text-xs text-gray-500">Comisión 2%</div>
             <div class="text-sm font-semibold text-gray-800 dark:text-white">{{ comisionTotal.toFixed(2) }} €</div>
@@ -383,20 +410,20 @@
       </div>
     </div>
 
-    <!-- 2. Fotos después de la reforma (convertido en loft) -->
+    <!-- 2. Fotos después de la reforma (convertido en apartamento) -->
     <div class="mt-4 sm:mt-6">
-      <label class="block text-xs sm:text-sm font-medium mb-2 text-gray-800 dark:text-gray-200">Fotos después de la reforma (convertido en loft)</label>
+      <label class="block text-xs sm:text-sm font-medium mb-2 text-gray-800 dark:text-gray-200">Fotos después de la reforma (convertido en apartamento)</label>
       <div class="mb-4">
         <input ref="fileInputOficinaRemodelada" type="file" accept="image/*" multiple class="hidden" @change="(e) => handleFileSelectFor(e, 'oficina_remodelada')" />
         <button type="button" @click="fileInputOficinaRemodelada?.click()" class="px-4 py-2 border-2 border-dashed rounded-lg font-medium text-brand-500 hover:opacity-70 border-brand-500">+ Agregar fotos</button>
       </div>
       <div v-if="(formData.fotos_oficina_remodelada?.length ?? 0) > 0 || uploadedPhotosOficinaRemodelada.length > 0" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         <div v-for="(photo, index) in (formData.fotos_oficina_remodelada || [])" :key="`or-e-${index}`" class="relative group">
-          <img :src="getPhotoUrl(photo)" :alt="`Loft después de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="getPhotoUrl(photo)" :alt="`Apartamento después de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="removeExistingPhotoIn('fotos_oficina_remodelada', index)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
         <div v-for="(photo, index) in uploadedPhotosOficinaRemodelada" :key="`or-n-${index}`" class="relative group">
-          <img :src="photo.preview" :alt="`Nueva foto loft después de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
+          <img :src="photo.preview" :alt="`Nueva foto apartamento después de reforma ${index + 1}`" class="w-full h-24 sm:h-32 object-cover rounded-lg" />
           <button type="button" @click="uploadedPhotosOficinaRemodelada.splice(index, 1)" class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">×</button>
         </div>
       </div>
@@ -529,7 +556,9 @@ const formData = ref<Omit<Proyecto, 'id' | 'created_at' | 'updated_at'>>({
   localidad: null,
   permisos: '',
   num_lofts: 0,
+  num_tickets: null as number | null,
   precio_unidad: 0,
+  tir_preferente: null as number | null,
   precio_compra: 0,
   precio_reforma: 0,
   licencias: 0,
@@ -687,7 +716,9 @@ watch(() => props.proyecto, (p) => {
       localidad: p.localidad ?? null,
       permisos: p.permisos || '',
       num_lofts: p.num_lofts,
+      num_tickets: p.num_tickets != null ? Number(p.num_tickets) : null,
       precio_unidad: p.precio_unidad ?? 0,
+      tir_preferente: p.tir_preferente ?? null,
       precio_compra: p.precio_compra ?? 0,
       precio_reforma: p.precio_reforma ?? 0,
       licencias: p.licencias ?? 0,
@@ -728,7 +759,7 @@ watch(() => props.proyecto, (p) => {
       }
     })
   } else {
-    formData.value = { ...formData.value, nombre_proyecto: '', localizacion: '', localidad: null, permisos: '', num_lofts: 0, precio_compra: 0, precio_reforma: 0, licencias: 0, caracteristicas: '', fotos: [], fotos_oficina_actual: [], fotos_oficina_remodelada: [], fotos_instalaciones_comunes: [], videos: [], street_view_embed: '', comodidades: [], complementos_flexliving: [], unidades_tipos: [] }
+    formData.value = { ...formData.value, nombre_proyecto: '', localizacion: '', localidad: null, permisos: '', num_lofts: 0, num_tickets: null, precio_compra: 0, precio_reforma: 0, licencias: 0, caracteristicas: '', fotos: [], fotos_oficina_actual: [], fotos_oficina_remodelada: [], fotos_instalaciones_comunes: [], videos: [], street_view_embed: '', comodidades: [], complementos_flexliving: [], unidades_tipos: [], tir_preferente: null }
     existingPhotos.value = []
     uploadedPhotos.value = []
     uploadedPhotosOficinaActual.value = []

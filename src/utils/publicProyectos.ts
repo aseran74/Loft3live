@@ -8,7 +8,7 @@ export async function fetchPublicProyectos(onlyLanding = false): Promise<Proyect
   let query = insforge.database
     .from('proyectos')
     .select(
-      'id, created_at, updated_at, nombre_proyecto, objetivo_inversion_total, localizacion, localidad, permisos, num_lofts, precio_unidad, precio_compra, precio_reforma, licencias, gasto_estimado_comunidad, tipo_inversion, porcentaje_llegado, min_termino_meses, monto_restante, alquiler, precio_alquiler_mes, mostrar_en_landing, consulta_vinculante_urbanistica, vendido_cerrado, caracteristicas, fotos, fotos_oficina_actual, fotos_oficina_remodelada, fotos_instalaciones_comunes, videos, street_view_embed, comodidades, unidades_tipos, complementos_flexliving'
+      'id, created_at, updated_at, nombre_proyecto, objetivo_inversion_total, localizacion, localidad, permisos, num_lofts, num_tickets, precio_unidad, tir_preferente, precio_compra, precio_reforma, licencias, gasto_estimado_comunidad, tipo_inversion, porcentaje_llegado, min_termino_meses, monto_restante, alquiler, precio_alquiler_mes, mostrar_en_landing, consulta_vinculante_urbanistica, vendido_cerrado, caracteristicas, fotos, fotos_oficina_actual, fotos_oficina_remodelada, fotos_instalaciones_comunes, videos, street_view_embed, comodidades, unidades_tipos, complementos_flexliving'
     )
   if (onlyLanding) {
     query = query.eq('mostrar_en_landing', true)

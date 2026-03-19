@@ -3,7 +3,7 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Utilizar puntos</h1>
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Solicita usar el loft de otro inquilino eligiendo un periodo activo. Filtra por localidad y consulta el mapa. Al aprobar la solicitud, se te descontarán los puntos y al propietario se le sumarán automáticamente.
+        Solicita usar el apartamento de otro inquilino eligiendo un periodo activo. Filtra por localidad y consulta el mapa. Al aprobar la solicitud, se te descontarán los puntos y al propietario se le sumarán automáticamente.
       </p>
     </div>
 
@@ -41,11 +41,11 @@
       </div>
     </div>
 
-    <!-- Solicitar usar loft de otro inquilino -->
+    <!-- Solicitar usar apartamento de otro inquilino -->
     <div class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h2 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Solicitar usar loft de otro inquilino</h2>
+      <h2 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Solicitar usar apartamento de otro inquilino</h2>
       <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        Elige un periodo que haya activado otro inquilino y los días que quieres usar su loft. Al aprobar la solicitud, se te descontarán los puntos y al propietario se le sumarán automáticamente.
+        Elige un periodo que haya activado otro inquilino y los días que quieres usar su apartamento. Al aprobar la solicitud, se te descontarán los puntos y al propietario se le sumarán automáticamente.
       </p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div>
@@ -56,7 +56,7 @@
           >
             <option value="">Selecciona periodo</option>
             <option v-for="p in periodosFiltrados" :key="p.id" :value="p.id">
-              {{ p.propietario_nombre }} (Loft {{ p.propietario_loft }}) · {{ p.proyecto_nombre ?? '' }} {{ p.localidad ? `· ${p.localidad}` : '' }} · {{ formatoFecha(p.fecha_desde) }} – {{ formatoFecha(p.fecha_hasta) }} ({{ p.puntos_por_dia }} pts/día)
+              {{ p.propietario_nombre }} (Apartamento {{ p.propietario_loft }}) · {{ p.proyecto_nombre ?? '' }} {{ p.localidad ? `· ${p.localidad}` : '' }} · {{ formatoFecha(p.fecha_desde) }} – {{ formatoFecha(p.fecha_hasta) }} ({{ p.puntos_por_dia }} pts/día)
             </option>
           </select>
           <p v-if="periodosFiltrados.length === 0" class="mt-1 text-xs text-gray-500 dark:text-gray-400">

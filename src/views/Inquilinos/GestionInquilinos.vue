@@ -20,7 +20,7 @@
       <div v-if="resumenProyecto.totalLofts > 0" class="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3 dark:border-gray-600 dark:bg-gray-800">
         <p class="text-sm font-medium text-gray-700 dark:text-gray-200">Resumen del proyecto</p>
         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-          Lofts: <strong>{{ resumenProyecto.totalLofts }}</strong> · Alquilados: <strong>{{ resumenProyecto.alquilados }}</strong>
+          Apartamentos: <strong>{{ resumenProyecto.totalLofts }}</strong> · Alquilados: <strong>{{ resumenProyecto.alquilados }}</strong>
         </p>
       </div>
 
@@ -39,13 +39,13 @@
         </div>
 
         <div>
-          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Loft #</label>
+          <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-200">Apartamento #</label>
           <select
             v-model.number="createForm.loft_num"
             class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900"
           >
             <option v-for="n in opcionesLoft" :key="n" :value="n">
-              Loft {{ n }}{{ loftsOcupados.includes(n) ? ' (ocupado)' : '' }}
+              Apartamento {{ n }}{{ loftsOcupados.includes(n) ? ' (ocupado)' : '' }}
             </option>
           </select>
         </div>
@@ -195,7 +195,7 @@
             <tr>
               <th class="px-3 py-2 text-left">Avatar</th>
               <th class="px-3 py-2 text-left">Proyecto</th>
-              <th class="px-3 py-2 text-left">Loft</th>
+              <th class="px-3 py-2 text-left">Apartamento</th>
               <th class="px-3 py-2 text-left">Inquilino</th>
               <th class="px-3 py-2 text-left">Correo</th>
               <th class="px-3 py-2 text-left">Teléfono</th>
@@ -301,7 +301,7 @@
               </select>
             </div>
             <div>
-              <label class="mb-2 block text-sm font-medium">Loft #</label>
+              <label class="mb-2 block text-sm font-medium">Apartamento #</label>
               <input v-model.number="editForm.loft_num" type="number" min="1" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900" />
             </div>
             <div class="md:col-span-2">
@@ -623,7 +623,7 @@ function guardarModalFechas() {
 
 function validarForm(form: InquilinoForm): string | null {
   if (!form.proyecto_id) return 'Selecciona un proyecto'
-  if (!Number.isFinite(form.loft_num) || form.loft_num < 1) return 'El número de loft debe ser mayor o igual a 1'
+  if (!Number.isFinite(form.loft_num) || form.loft_num < 1) return 'El número de apartamento debe ser mayor o igual a 1'
   if (!form.nombre.trim()) return 'Introduce el nombre del inquilino'
   if (form.correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.correo)) return 'El correo no es válido'
   return null

@@ -27,8 +27,8 @@
 
         <div class="flex-use-modal-body">
           <ul class="flex-use-modal-list">
-            <li><strong>La situación:</strong> Vives/trabajas en tu Smart Loft de Madrid, pero te surge un proyecto de 20 días en Barcelona.</li>
-            <li><strong>La acción:</strong> Activas el Modo Flex en la App. Tu loft de Madrid queda disponible para la red.</li>
+            <li><strong>La situación:</strong> Vives/trabajas en tu Apartamento Smart de Madrid, pero te surge un proyecto de 20 días en Barcelona.</li>
+            <li><strong>La acción:</strong> Activas el Modo Flex en la App. Tu apartamento de Madrid queda disponible para la red.</li>
             <li><strong>El resultado:</strong> Mientras estás en Barcelona, otro profesional usa tu espacio en Madrid. Tú acumulas créditos que cubren íntegramente tu estancia en Barcelona.</li>
             <li><strong>Balance final:</strong> Has vivido y trabajado en dos ciudades pagando solo una. Coste neto tendente a cero.</li>
           </ul>

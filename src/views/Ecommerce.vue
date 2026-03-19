@@ -45,7 +45,7 @@
               <div>
                 <p class="font-medium text-gray-900 dark:text-white">{{ r.comprador_nombre || 'Comprador' }}</p>
                 <p class="mt-0.5 text-sm text-gray-600 dark:text-gray-300">{{ (r.fecha_desde && r.fecha_hasta) ? (formatoFechaReserva(r.fecha_desde) + ' – ' + formatoFechaReserva(r.fecha_hasta)) : 'Periodo' }} · {{ r.dias_usados }} día(s) · <strong>{{ r.puntos }}</strong> puntos</p>
-                <p v-if="r.propietario_loft != null" class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">Loft {{ r.propietario_loft }}{{ r.proyecto_nombre ? (' · ' + r.proyecto_nombre) : '' }}</p>
+                <p v-if="r.propietario_loft != null" class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">Apartamento {{ r.propietario_loft }}{{ r.proyecto_nombre ? (' · ' + r.proyecto_nombre) : '' }}</p>
               </div>
               <span class="inline-flex shrink-0 items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/40 dark:text-green-300">{{ r.estado }}</span>
             </div>
@@ -151,7 +151,7 @@
                 <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Entrada</th>
                 <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Salida</th>
                 <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Proyecto</th>
-                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Loft</th>
+                <th class="px-3 py-2 text-left font-medium text-gray-500 dark:text-gray-400">Apartamento</th>
               </tr>
             </thead>
             <tbody>

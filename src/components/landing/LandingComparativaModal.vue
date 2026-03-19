@@ -33,8 +33,8 @@
               <thead>
                 <tr>
                   <th>Concepto</th>
-                  <th>Loft Tradicional</th>
-                  <th>Modelo Smart Loft (80/20)</th>
+                  <th>Apartamento tradicional</th>
+                  <th>Modelo Apartamento Smart (80/20)</th>
                 </tr>
               </thead>
               <tbody>

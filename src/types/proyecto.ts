@@ -19,6 +19,10 @@ export interface Proyecto {
   permisos: string
   num_lofts: number
   precio_unidad: number
+  /** Total de tickets del proyecto (si no se define, se usa num_lofts) */
+  num_tickets?: number | null
+  /** TIR preferente en porcentaje (ej. 8 = 8%) */
+  tir_preferente?: number | null
   precio_compra: number
   precio_reforma: number
   licencias: number

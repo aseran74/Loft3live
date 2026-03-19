@@ -45,7 +45,7 @@
             <dd class="mt-1 font-semibold text-gray-900 dark:text-white">{{ inquilino?.proyecto_nombre ?? '—' }}</dd>
           </div>
           <div>
-            <dt class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Loft</dt>
+            <dt class="text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Apartamento</dt>
             <dd class="mt-1 text-xl font-bold text-brand-600 dark:text-brand-400">{{ inquilino?.loft_num ?? '—' }}</dd>
           </div>
           <div v-if="inquilino?.correo">
@@ -124,7 +124,7 @@
         </span>
         <h3 class="mt-3 font-semibold text-gray-800 dark:text-white">Utilizar puntos</h3>
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-          Solicitar loft de otro inquilino e historial
+          Solicitar apartamento de otro inquilino e historial
         </p>
       </router-link>
     </div>

@@ -3,7 +3,7 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Facturación Alquiler</h1>
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Control de estados de cobro por loft con persistencia en InsForge.
+        Control de estados de cobro por apartamento con persistencia en InsForge.
       </p>
     </div>
 
@@ -33,7 +33,7 @@
           </select>
         </div>
         <div>
-          <label class="mb-2 block text-sm font-medium">Filtrar por loft</label>
+          <label class="mb-2 block text-sm font-medium">Filtrar por apartamento</label>
           <input
             v-model.number="filtroLoft"
             type="number"
@@ -44,7 +44,7 @@
         </div>
       </div>
       <p class="mt-3 text-xs text-gray-500">
-        Base esperada: 55 lofts por proyecto, renta base 1200 EUR, con 10% de descuento para inquilino-propietario.
+        Base esperada: 55 apartamentos por proyecto, renta base 1200 EUR, con 10% de descuento para inquilino-propietario.
       </p>
     </div>
 
@@ -203,7 +203,7 @@
         <table class="min-w-full text-sm">
           <thead class="bg-gray-50 dark:bg-gray-900">
             <tr>
-              <th class="px-3 py-2 text-left">Loft</th>
+              <th class="px-3 py-2 text-left">Apartamento</th>
               <th class="px-3 py-2 text-left">Inquilino</th>
               <th class="px-3 py-2 text-left">Estado</th>
               <th class="px-3 py-2 text-right">Base</th>
@@ -216,7 +216,7 @@
           <tbody>
             <tr v-for="r in filasFiltradas" :key="r.id" class="border-t border-gray-100 dark:border-gray-700">
               <td class="px-3 py-2">{{ r.loft_num }}</td>
-              <td class="px-3 py-2">{{ r.inquilino_nombre || 'Loft vacío' }}</td>
+              <td class="px-3 py-2">{{ r.inquilino_nombre || 'Apartamento vacío' }}</td>
               <td class="px-3 py-2">
                 <select
                   v-model="r.estado"
@@ -265,7 +265,7 @@
           <div class="border-b border-gray-200 p-4 dark:border-gray-700">
             <h2 class="text-lg font-semibold">Detalle mes a mes ({{ filtroAnio }})</h2>
             <p class="mt-1 text-xs text-gray-500">
-              Solo el importe <strong>Solo Pagado</strong> se refleja en Facturación Compradores. Si un loft está Pendiente o Incidencia en un mes, ese dinero no entra en el reparto.
+              Solo el importe <strong>Solo Pagado</strong> se refleja en Facturación Compradores. Si un apartamento está Pendiente o Incidencia en un mes, ese dinero no entra en el reparto.
             </p>
           </div>
           <div class="max-h-[60vh] overflow-auto p-4">
@@ -311,14 +311,14 @@
               </tbody>
             </table>
             <div v-for="r in resumenMesAMes" :key="'det-' + r.mes" v-show="expandidoMes[r.mes]" class="mt-3 rounded-lg border border-gray-200 dark:border-gray-700 p-3">
-              <p class="mb-2 text-xs font-medium text-gray-600 dark:text-gray-400">{{ r.nombreMes }} – estado por loft</p>
+              <p class="mb-2 text-xs font-medium text-gray-600 dark:text-gray-400">{{ r.nombreMes }} – estado por apartamento</p>
               <div class="flex flex-wrap gap-2">
                 <div
                   v-for="p in r.periodos"
                   :key="p.id"
                   class="flex items-center gap-2 rounded border border-gray-200 bg-gray-50 px-2 py-1 dark:border-gray-600 dark:bg-gray-800"
                 >
-                  <span class="text-xs font-medium">Loft {{ p.loft_num }}</span>
+                  <span class="text-xs font-medium">Apartamento {{ p.loft_num }}</span>
                   <select
                     v-model="p.estado"
                     class="rounded border border-gray-300 bg-white px-2 py-0.5 text-xs dark:border-gray-600 dark:bg-gray-900"
@@ -626,7 +626,7 @@ async function guardarFila(row: FilaFacturacion) {
     error.value = err.message || 'No se pudo actualizar la fila'
     return
   }
-  success.value = `Loft ${row.loft_num} actualizado.`
+  success.value = `Apartamento ${row.loft_num} actualizado.`
 }
 
 async function cargarPeriodosMesAMes() {
@@ -666,7 +666,7 @@ async function actualizarEstadoPeriodo(p: PeriodoMesAMes) {
     error.value = err.message || 'No se pudo actualizar el periodo'
     return
   }
-  success.value = `Loft ${p.loft_num} mes ${p.mes} actualizado.`
+  success.value = `Apartamento ${p.loft_num} mes ${p.mes} actualizado.`
 }
 
 function abrirModalMesAMes() {

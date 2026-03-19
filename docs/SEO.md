@@ -7,7 +7,7 @@ Recomendaciones y cambios aplicados para mejorar el posicionamiento y la accesib
 ### index.html (global)
 - **`lang="es"`** en `<html>` para idioma.
 - **`meta name="description"`**: descripción por defecto de la web.
-- **`meta name="keywords"`**: palabras clave (loft, inversión, Flex Use, etc.).
+- **`meta name="keywords"`**: palabras clave (apartamento, inversión, Flex Use, etc.).
 - **`meta name="author"`** y **`meta name="robots"`** (index, follow).
 - **`link rel="canonical"`**: se actualiza por ruta en el router.
 - **Open Graph** (`og:title`, `og:description`, `og:image`, `og:locale`) para redes sociales.
@@ -34,10 +34,10 @@ Cada página pública debería tener **un solo H1** por vista; el resto de títu
 ## 3. Imágenes: alt y nombres de archivo
 
 ### Alt ya mejorados
-- **Landing**: logo “Loft2Live - Inversión y alquiler flexible en lofts”; hero con texto descriptivo; frames decorativos con `role="presentation"` y `alt=""`.
+- **Landing**: logo “Loft2Live - Inversión y alquiler flexible en apartamentos”; hero con texto descriptivo; frames decorativos con `role="presentation"` y `alt=""`.
 - **ProyectoCard**: “Proyecto [nombre] - Imagen de portada”.
 - **DetalleProyecto**: descripciones con nombre del proyecto (oficina antes/después, instalaciones, etc.).
-- **FormProyecto**: “Oficina antes de reforma”, “Loft después de reforma”, “Foto apartamento”, “Instalaciones comunes” + índice.
+- **FormProyecto**: “Oficina antes de reforma”, “Apartamento después de reforma”, “Foto apartamento”, “Instalaciones comunes” + índice.
 - **Blog**: `alt` = título del post.
 
 ### Renombrar archivos (aplicado)

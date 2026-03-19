@@ -29,40 +29,29 @@
 
       <LandingLeyMadridModal :open="leyMadridModalOpen" @close="leyMadridModalOpen = false" />
 
-      <!-- Video destacado -->
-      <div class="video-section mb-16">
-        <div class="video-wrapper">
-          <video
-            ref="videoEl"
-            class="section-video"
-            :src="videoSectionSrc"
-            controls
-            playsinline
-            @play="showPlayOverlay = false"
-            @pause="showPlayOverlay = true"
-            @ended="showPlayOverlay = true"
-          >
-            Tu navegador no soporta la reproducción de video.
-          </video>
-          <div
-            v-show="showPlayOverlay"
-            class="video-play-overlay"
-            role="button"
-            tabindex="0"
-            aria-label="Reproducir video"
-            @click="playVideo"
-            @keydown.enter="playVideo"
-          >
-            <div class="video-play-overlay-inner">
-              <img :src="logoOverlaySrc" alt="Loft2live" class="video-overlay-logo" />
-              <div class="video-play-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-                  <path d="M8 5v14l11-7L8 5z"/>
-                </svg>
-              </div>
+      <!-- Slider instalaciones -->
+      <div class="instalaciones-slider-section mb-16">
+        <Swiper
+          :modules="instalacionesSwiperModules"
+          :slides-per-view="1"
+          :space-between="0"
+          loop
+          grab-cursor
+          navigation
+          :pagination="{ clickable: true }"
+          :autoplay="{ delay: 4000, disableOnInteraction: false }"
+          class="instalaciones-swiper"
+        >
+          <SwiperSlide v-for="(img, i) in instalacionesImages" :key="i">
+            <div class="instalaciones-slide">
+              <img
+                :src="img.src"
+                :alt="img.alt"
+                class="instalaciones-slide-img"
+              />
             </div>
-          </div>
-        </div>
+          </SwiperSlide>
+        </Swiper>
       </div>
 
       <!-- ¿Cómo funciona Loft2Live? -->
@@ -71,13 +60,10 @@
         <p class="how-intro-text">
           Usas un mismo espacio para vivir y trabajar, con una estructura clara, flexible y defendible legalmente.
         </p>
-        <p class="how-intro-sub">Las 6 decisiones claras desde el primer día:</p>
       </div>
 
-      <!-- Las 6 decisiones claras -->
-      <h3 class="text-2xl font-bold text-center mb-2 text-gray-900">Las 6 decisiones claras desde el primer día</h3>
-      <p class="text-center text-gray-600 mb-8">1️⃣ Cómo entrar · 2️⃣ Ventajas fiscales compra · 3️⃣ Ventajas fiscales alquiler · 4️⃣ Control y movilidad · 5️⃣ Flex Use · 6️⃣ Salida sin bloqueos</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Las 6 decisiones claras (nuevo texto 1-6) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         <!-- 1 -->
         <div class="step-card">
           <div class="step-icon-wrapper">
@@ -85,19 +71,19 @@
             <div class="step-number">1</div>
           </div>
           <h3 class="step-title">Cómo entrar</h3>
-          <p class="step-description mb-3">Tres niveles según tu implicación:</p>
+          <p class="step-description mb-3">Tres formas de participar, según tu nivel de implicación:</p>
           <ul class="niveles-list">
             <li>
-              <strong class="nivel-label">Alquiler flexible sin inversión</strong>
-              <span class="nivel-desc">Entras a vivir y trabajar sin desembolsar capital.</span>
+              <strong class="nivel-label">Acceso flexible sin inversión</strong>
+              <span class="nivel-desc">Vive y trabaja en el espacio sin necesidad de aportar capital inicial.</span>
             </li>
             <li>
-              <strong class="nivel-label">Socio Flex desde 5.000€</strong>
-              <span class="nivel-desc">Compra un ticket y ten una participación del inmueble; participas en los ingresos y aprovéchate de descuentos para alojarte.</span>
+              <strong class="nivel-label">Socio Flex (desde 5.000€)</strong>
+              <span class="nivel-desc">Adquiere una participación del inmueble, genera ingresos proporcionales y disfruta de descuentos exclusivos en estancias.</span>
             </li>
             <li>
               <strong class="nivel-label">Compra directa de un apartamento</strong>
-              <span class="nivel-desc">Control total del mismo.</span>
+              <span class="nivel-desc">Control total del activo, con plena libertad de uso y gestión.</span>
             </li>
           </ul>
         </div>
@@ -109,7 +95,12 @@
             <div class="step-number">2</div>
           </div>
           <h3 class="step-title">Ventajas fiscales si compras</h3>
-          <p class="step-description">Uso profesional te permite recuperar el IVA, amortizar el inmueble y deducir gastos corrientes.</p>
+          <p class="step-description mb-3">Optimiza tu inversión desde el primer momento:</p>
+          <ul class="step-list">
+            <li><strong>Recuperación del IVA en uso profesional</strong></li>
+            <li><strong>Amortización del inmueble</strong></li>
+            <li><strong>Deducción de gastos operativos</strong> (suministros, mantenimiento, etc.)</li>
+          </ul>
         </div>
 
         <!-- 3 -->
@@ -119,7 +110,10 @@
             <div class="step-number">3</div>
           </div>
           <h3 class="step-title">Ventajas fiscales si alquilas</h3>
-          <p class="step-description">El alquiler se divide en dos facturas: el 80% corresponde al uso profesional, deducible al 100%, y el 20% al uso habitacional, deducible al 30%. Todo basado en el uso real del espacio, sin artificios legales.</p>
+          <p class="step-description mb-3">Modelo optimizado y transparente, basado en el uso real:</p>
+          <p class="step-description">80% uso profesional → deducible al 100%.</p>
+          <p class="step-description">20% uso habitacional → deducible hasta un 30%.</p>
+          <p class="step-description">Sin estructuras artificiales: fiscalidad alineada con la realidad del uso del espacio.</p>
         </div>
 
         <!-- 4 -->
@@ -129,7 +123,13 @@
             <div class="step-number">4</div>
           </div>
           <h3 class="step-title">Control y movilidad</h3>
-          <p class="step-description">Desde tu perfil digital gestionas ingresos en tiempo real, historial y derechos. El contrato te sigue si cambias de ciudad.</p>
+          <p class="step-description mb-3">Tu inversión, siempre bajo control:</p>
+          <ul class="step-list">
+            <li>Panel digital con ingresos en tiempo real</li>
+            <li>Historial completo y trazabilidad</li>
+            <li>Gestión de derechos desde tu perfil</li>
+            <li>Contrato portable: te acompaña si cambias de ciudad</li>
+          </ul>
         </div>
 
         <!-- 5 -->
@@ -139,7 +139,12 @@
             <div class="step-number">5</div>
           </div>
           <h3 class="step-title">Flex Use</h3>
-          <p class="step-description">Cuando no usas tu espacio, otros miembros lo ocupan y tú generas ingresos o créditos canjeables por estancias, servicios o descuento en cuotas.</p>
+          <p class="step-description mb-3">Convierte el tiempo no utilizado en rentabilidad:</p>
+          <ul class="step-list">
+            <li>Otros miembros ocupan tu espacio cuando no lo usas</li>
+            <li>Generas ingresos o créditos</li>
+            <li>Canjea por estancias, servicios o reducción de cuotas</li>
+          </ul>
           <button
             type="button"
             class="flex-use-example-trigger"
@@ -156,7 +161,12 @@
             <div class="step-number">6</div>
           </div>
           <h3 class="step-title">Salida sin bloqueos</h3>
-          <p class="step-description">Cada modalidad tiene salida clara: el alquiler es libre, las participaciones se venden dentro de la red, y el loft completo puede venderse de forma tradicional o en el ecosistema.</p>
+          <p class="step-description mb-3">Liquidez adaptada a cada modalidad:</p>
+          <ul class="step-list">
+            <li><strong>Alquiler:</strong> cancelación flexible</li>
+            <li><strong>Participaciones:</strong> venta dentro del ecosistema</li>
+            <li><strong>Propiedad completa:</strong> venta tradicional o dentro de la red</li>
+          </ul>
         </div>
       </div>
 
@@ -255,6 +265,8 @@
 import { ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
 import LandingSavingsModal from './LandingSavingsModal.vue'
 import LandingContractModal from './LandingContractModal.vue'
 import LandingArrendamientoModal from './LandingArrendamientoModal.vue'
@@ -264,10 +276,19 @@ import LandingComparativaModal from './LandingComparativaModal.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const videoEl = ref<HTMLVideoElement | null>(null)
-const showPlayOverlay = ref(true)
-const videoSectionSrc = '/images/Videoabajo.mp4'
-const logoOverlaySrc = '/images/images/loft2live-logo-blanco.png'
+const instalacionesSwiperModules = [Navigation, Pagination, Autoplay]
+
+const instalacionesImages = [
+  { src: '/images/images/Instalaciones/1760012002_Piscina(3).jpg', alt: 'Piscina' },
+  { src: '/images/images/Instalaciones/Loft3_032.webp', alt: 'Instalaciones' },
+  { src: '/images/images/Instalaciones/Loft3_055.webp', alt: 'Instalaciones' },
+  { src: '/images/images/Instalaciones/Loft3_038.webp', alt: 'Instalaciones' },
+  { src: '/images/images/Instalaciones/1760967484_5.png', alt: 'Instalaciones' },
+  { src: '/images/images/Instalaciones/1760011299_Coworking.jpg', alt: 'Coworking' },
+  { src: '/images/images/Instalaciones/Loft3_029.webp', alt: 'Instalaciones' },
+  { src: '/images/images/Instalaciones/Whisk_idzxmwz3mgzwujnz0izjvmytgtn3qtl2gtyk1cm_063.webp', alt: 'Instalaciones' }
+]
+
 const savingsModalOpen = ref(false)
 const contractModalOpen = ref(false)
 const arrendamientoModalOpen = ref(false)
@@ -275,12 +296,6 @@ const leyMadridModalOpen = ref(false)
 const flexUseExampleModalOpen = ref(false)
 const comparativaModalOpen = ref(false)
 const roadmapVisible = ref(false)
-
-function playVideo() {
-  if (videoEl.value) {
-    videoEl.value.play()
-  }
-}
 
 onMounted(() => {
   gsap.utils.toArray<Element>('.step-card').forEach((card, index) => {
@@ -324,13 +339,13 @@ onMounted(() => {
   --radius-lg: 0.5rem;
 }
 
-.video-section {
+.instalaciones-slider-section {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
-.video-wrapper {
-  position: relative;
+.instalaciones-swiper {
   width: 100%;
   max-width: 900px;
   border-radius: 1rem;
@@ -338,63 +353,45 @@ onMounted(() => {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 }
 
-.section-video {
+.instalaciones-slide {
+  aspect-ratio: 16 / 10;
+  background: var(--color-gray-100);
+}
+
+.instalaciones-slide-img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
-.video-play-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.video-play-overlay:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.video-play-overlay-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.video-overlay-logo {
-  height: 64px;
-  width: auto;
-  max-width: 220px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
-}
-
-.video-play-button {
-  width: 80px;
-  height: 80px;
+.instalaciones-swiper :deep(.swiper-button-prev),
+.instalaciones-swiper :deep(.swiper-button-next) {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4);
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(70, 95, 255, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.video-play-overlay:hover .video-play-button {
-  transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(70, 95, 255, 0.5);
+.instalaciones-swiper :deep(.swiper-button-prev:hover),
+.instalaciones-swiper :deep(.swiper-button-next:hover) {
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.play-icon {
-  width: 36px;
-  height: 36px;
-  color: white;
-  margin-left: 4px;
+.instalaciones-swiper :deep(.swiper-button-prev::after),
+.instalaciones-swiper :deep(.swiper-button-next::after) {
+  font-size: 1.25rem;
+}
+
+.instalaciones-swiper :deep(.swiper-pagination-bullet) {
+  background: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+}
+
+.instalaciones-swiper :deep(.swiper-pagination-bullet-active) {
+  background: #fff;
+  transform: scale(1.2);
 }
 
 .step-card {
@@ -639,6 +636,43 @@ onMounted(() => {
   color: var(--color-muted);
   margin: 0;
   font-weight: 500;
+}
+
+.section-block-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  text-align: center;
+  margin: 0 0 0.25rem 0;
+}
+
+.section-block-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: var(--color-primary);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.section-block-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted-foreground);
+  text-align: center;
+  margin: 0 0 2rem 0;
+}
+
+.section-subtitle {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-foreground);
+  text-align: center;
+  margin: 2.5rem 0 0 0;
+}
+
+.section-subtitle:first-of-type {
+  margin-top: 1rem;
 }
 
 .savings-cta-button {

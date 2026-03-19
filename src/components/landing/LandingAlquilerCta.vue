@@ -7,7 +7,7 @@
             ¿Buscas alquilar?
           </h2>
           <p class="text-gray-600">
-            Temporada entera (Sep–Jul) o días sueltos. Lofts con todas las comodidades y mapa para elegir ubicación.
+Temporada entera (Sep–Jul) o días sueltos. Apartamentos con todas las comodidades y mapa para elegir ubicación.
           </p>
         </div>
         <router-link

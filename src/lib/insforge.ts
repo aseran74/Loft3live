@@ -13,4 +13,7 @@ if (!baseUrl || !anonKey) {
 export const insforge = createClient({
   baseUrl: baseUrl || 'https://placeholder.insforge.app',
   anonKey: anonKey || '',
+  // Renovar el access token con el refresh token cuando caduque (Insforge no expone duración del JWT en el dashboard)
+  autoRefreshToken: true,
+  persistSession: true,
 })

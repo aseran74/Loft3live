@@ -6,28 +6,28 @@
     <div 
       class="mx-auto max-w-7xl transition-all duration-300"
       :class="{
-        'rounded-full bg-white/20 dark:bg-gray-900/30 backdrop-blur-md shadow-lg border border-white/10 dark:border-white/5 px-4 sm:px-6 lg:px-8 py-2': isScrolled,
-        'px-4 sm:px-6 lg:px-8': !isScrolled
+        'rounded-full bg-white/20 dark:bg-gray-900/30 backdrop-blur-md shadow-lg border border-white/10 dark:border-white/5 px-4 sm:px-6 lg:px-8 py-2': isDarkNav,
+        'px-4 sm:px-6 lg:px-8': !isDarkNav
       }"
     >
       <div class="flex items-center justify-between h-14 lg:h-16 overflow-visible">
-        <!-- Logo: blanco cuando navbar transparente, oscuro cuando scrolled -->
+        <!-- Logo: blanco cuando navbar transparente, oscuro cuando scrolled o en /inversiones -->
         <router-link to="/" class="flex items-center shrink-0 overflow-visible" title="Ir a inicio">
           <img 
-            :src="isScrolled ? '/images/images/loft2live-logo-color.png' : '/images/images/loft2live-logo-blanco.png'" 
-            alt="Loft2Live - Inversión y alquiler flexible en lofts" 
+            :src="isDarkNav ? '/images/images/loft2live-logo-color.png' : '/images/images/loft2live-logo-blanco.png'" 
+            alt="Loft2Live - Inversión y alquiler flexible en apartamentos" 
             class="h-24 w-auto object-contain object-left lg:h-28"
           />
         </router-link>
 
         <!-- Navigation -->
-        <nav class="hidden md:flex items-center space-x-6" :class="isScrolled ? 'text-gray-900' : 'text-white'">
+        <nav class="hidden md:flex items-center space-x-6" :class="isDarkNav ? 'text-gray-900' : 'text-white'">
           <!-- Búsqueda con dropdown -->
           <div class="relative" ref="busquedaDropdownRef">
             <button
               @click.prevent="toggleBusquedaDropdown"
               class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80"
-              :class="isScrolled ? 'text-gray-900' : 'text-white'"
+              :class="isDarkNav ? 'text-gray-900' : 'text-white'"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -71,21 +71,21 @@
           </router-link>
             </div>
           </div>
-          <router-link to="/inversiones#preguntas" class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80" :class="isScrolled ? 'text-gray-900 hover:text-brand-600' : 'text-white'">
+          <router-link to="/inversiones#preguntas" class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80" :class="isDarkNav ? 'text-gray-900 hover:text-brand-600' : 'text-white'">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9a4 4 0 1 1 7.5 2c-.9.8-1.5 1.3-1.5 2.5V14" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 17h.01" />
             </svg>
             <span>Preguntas frecuentes</span>
           </router-link>
-          <router-link to="/quienes-somos" class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80" :class="isScrolled ? 'text-gray-900 hover:text-brand-600' : 'text-white'">
+          <router-link to="/quienes-somos" class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80" :class="isDarkNav ? 'text-gray-900 hover:text-brand-600' : 'text-white'">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 20a8 8 0 0 1 16 0" />
             </svg>
             <span>Quiénes somos</span>
           </router-link>
-          <router-link to="/blog" class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80" :class="isScrolled ? 'text-gray-900 hover:text-brand-600' : 'text-white'">
+          <router-link to="/blog" class="inline-flex items-center gap-2 transition-colors font-semibold hover:opacity-80" :class="isDarkNav ? 'text-gray-900 hover:text-brand-600' : 'text-white'">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V4z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16" />
@@ -95,7 +95,7 @@
         </nav>
 
         <!-- Acceso + Usuario (Desktop) -->
-        <div class="hidden md:flex items-center space-x-4" :class="isScrolled ? 'text-gray-900' : 'text-white'">
+        <div class="hidden md:flex items-center space-x-4" :class="isDarkNav ? 'text-gray-900' : 'text-white'">
           <div class="flex items-center space-x-2 font-semibold">
             <span>ES</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +123,7 @@
           <div v-if="isAuthenticated" class="relative ml-3" ref="dropdownRef">
             <button
               class="flex items-center gap-2 font-semibold hover:opacity-80"
-              :class="isScrolled ? 'text-gray-900' : 'text-white'"
+              :class="isDarkNav ? 'text-gray-900' : 'text-white'"
               @click.prevent="toggleDropdown"
             >
               <span class="overflow-hidden rounded-full h-9 w-9 border border-gray-200 bg-white">
@@ -173,7 +173,7 @@
 
         <!-- Mobile Acceso + Menu button -->
         <div class="flex md:hidden items-center">
-          <button class="p-2 font-semibold hover:opacity-80" :class="isScrolled ? 'text-gray-900' : 'text-white'" @click="mobileMenuOpen = !mobileMenuOpen">
+          <button class="p-2 font-semibold hover:opacity-80" :class="isDarkNav ? 'text-gray-900' : 'text-white'" @click="mobileMenuOpen = !mobileMenuOpen">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path v-if="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -183,8 +183,8 @@
       </div>
 
       <!-- Mobile menu -->
-      <div v-if="mobileMenuOpen" class="md:hidden py-3 border-t" :class="isScrolled ? 'border-gray-300' : 'border-white/20'">
-        <nav class="flex flex-col space-y-3" :class="isScrolled ? 'text-gray-900' : 'text-white'">
+      <div v-if="mobileMenuOpen" class="md:hidden py-3 border-t" :class="isDarkNav ? 'border-gray-300' : 'border-white/20'">
+        <nav class="flex flex-col space-y-3" :class="isDarkNav ? 'text-gray-900' : 'text-white'">
           <!-- Búsqueda móvil -->
           <div>
             <button
@@ -201,7 +201,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="mobileBusquedaOpen ? 'M5 15l7-7 7 7' : 'M19 9l-7 7-7-7'" />
               </svg>
             </button>
-            <div v-if="mobileBusquedaOpen" class="ml-7 mt-2 space-y-2" :class="isScrolled ? 'text-gray-600' : 'text-white/90'">
+            <div v-if="mobileBusquedaOpen" class="ml-7 mt-2 space-y-2" :class="isDarkNav ? 'text-gray-600' : 'text-white/90'">
               <router-link
                 to="/inversiones"
                 class="block py-2 text-sm text-gray-600 hover:opacity-70"
@@ -303,9 +303,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { useAuth } from '@/composables/useAuth'
 
+const route = useRoute()
 const isScrolled = ref(false)
 const mobileMenuOpen = ref(false)
 const mobileBusquedaOpen = ref(false)
@@ -374,6 +375,9 @@ const onClickOutside = (event: MouseEvent) => {
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
 }
+
+/** En vista detalle /inversiones (y lista) el fondo es claro: navbar con fuentes en negro desde el inicio */
+const isDarkNav = computed(() => isScrolled.value || route.path.startsWith('/inversiones'))
 
 onMounted(() => {
   document.addEventListener('click', onClickOutside)

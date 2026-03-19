@@ -42,9 +42,9 @@
           </div>
         </div>
         <div>
-          <div class="text-xs text-gray-500 font-medium tracking-wide uppercase mb-1.5">Precio por unidad</div>
+          <div class="text-xs text-gray-500 font-medium tracking-wide uppercase mb-1.5">TIR preferente</div>
           <div class="text-xl font-extrabold text-brand-500">
-            {{ formatCurrency(proyecto.precio_unidad) }}
+            {{ proyecto.tir_preferente != null ? `${Number(proyecto.tir_preferente)}%` : '—' }}
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
           <svg class="w-5 h-5 flex-shrink-0 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
-          <span class="font-medium">{{ proyecto.num_lofts }} lofts</span>
+          <span class="font-medium">{{ proyecto.num_lofts }} apartamentos</span>
         </div>
         <div class="flex items-center gap-3 text-[15px] text-gray-700">
           <svg class="w-5 h-5 flex-shrink-0 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@
       <!-- Progress Bar -->
       <div class="mb-8 p-5 bg-gray-50 rounded-2xl border border-gray-100">
         <div class="flex justify-between text-sm mb-3 text-gray-900 dark:text-white">
-          <span class="font-semibold">{{ formatCurrency(proyecto.monto_restante || 0) }} restantes</span>
+          <span class="font-semibold">{{ ticketsRestantes }} {{ ticketsRestantes === 1 ? 'ticket' : 'tickets' }} restantes</span>
           <span class="font-extrabold text-brand-500">{{ Math.round(proyecto.porcentaje_llegado || 0) }}%</span>
         </div>
         <div class="w-full rounded-full h-3 overflow-hidden bg-gray-200">
@@ -170,4 +170,28 @@ const formatCurrency = (amount: number) => {
     maximumFractionDigits: 0,
   }).format(amount)
 }
+
+/** Precio por ticket en € (debe coincidir con el formulario de proyecto) */
+const TICKET_EUR = 5000
+
+/** Total de tickets: num_tickets si está definido; si no, objetivo_inversion_total ÷ 5000 €; si no, num_lofts */
+const totalTickets = computed(() => {
+  const p = props.proyecto
+  if (p.num_tickets != null && Number.isFinite(Number(p.num_tickets))) {
+    return Math.max(0, Math.floor(Number(p.num_tickets)))
+  }
+  const porObjetivo = (p.objetivo_inversion_total || 0) / TICKET_EUR
+  if (porObjetivo > 0) {
+    return Math.max(0, Math.floor(porObjetivo))
+  }
+  return Math.max(0, Math.floor(Number(p.num_lofts) || 0))
+})
+
+/** Tickets restantes según porcentaje llegado (25% cogido → 75% restantes, redondeado) */
+const ticketsRestantes = computed(() => {
+  const total = totalTickets.value
+  const pct = Math.min(100, Math.max(0, props.proyecto.porcentaje_llegado || 0))
+  const restantes = Math.round((total * (100 - pct)) / 100)
+  return Math.max(0, Math.min(total, restantes))
+})
 </script>

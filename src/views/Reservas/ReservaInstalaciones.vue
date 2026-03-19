@@ -43,7 +43,7 @@
             class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900"
           >
             <option value="">Selecciona inquilino</option>
-            <option v-for="i in inquilinosProyecto" :key="i.id" :value="i.id">Loft {{ i.loft_num }} · {{ i.nombre }}</option>
+            <option v-for="i in inquilinosProyecto" :key="i.id" :value="i.id">Apartamento {{ i.loft_num }} · {{ i.nombre }}</option>
           </select>
         </div>
         <div>
@@ -357,7 +357,7 @@ const puedeGuardar = computed(() => {
 
 function nombreInquilino(id: string) {
   const i = inquilinos.value.find((x) => x.id === id)
-  return i ? `Loft ${i.loft_num} · ${i.nombre}` : id
+  return i ? `Apartamento ${i.loft_num} · ${i.nombre}` : id
 }
 
 function etiquetaInstalacion(tipo: string) {

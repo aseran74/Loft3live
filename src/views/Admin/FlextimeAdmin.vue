@@ -32,8 +32,8 @@
               class="border-t border-gray-100 dark:border-gray-700"
             >
               <td class="px-3 py-2 text-gray-600 dark:text-gray-400">{{ formatoFechaHora(c.created_at) }}</td>
-              <td class="px-3 py-2">{{ c.propietario_nombre ?? '—' }} <span class="text-gray-400">(Loft {{ c.propietario_loft }})</span></td>
-              <td class="px-3 py-2">{{ c.visitante_nombre ?? '—' }} <span class="text-gray-400">(Loft {{ c.visitante_loft }})</span></td>
+              <td class="px-3 py-2">{{ c.propietario_nombre ?? '—' }} <span class="text-gray-400">(Apartamento {{ c.propietario_loft }})</span></td>
+              <td class="px-3 py-2">{{ c.visitante_nombre ?? '—' }} <span class="text-gray-400">(Apartamento {{ c.visitante_loft }})</span></td>
               <td class="px-3 py-2">{{ c.dias_usados }}</td>
               <td class="px-3 py-2">
                 <input

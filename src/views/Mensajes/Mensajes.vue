@@ -68,7 +68,7 @@
             <div class="max-h-40 overflow-auto space-y-1">
               <label v-for="i in inquilinosProyecto" :key="i.id" class="flex items-center gap-2 text-sm">
                 <input v-model="formMensaje.destinatariosInq" type="checkbox" :value="i.id" class="h-3 w-3" />
-                Loft {{ i.loft_num }} · {{ i.nombre }}
+                Apartamento {{ i.loft_num }} · {{ i.nombre }}
               </label>
               <p v-if="!formMensaje.proyecto_id" class="text-xs text-gray-400">Selecciona un proyecto</p>
             </div>

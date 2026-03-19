@@ -24,13 +24,13 @@
           </select>
         </div>
         <div>
-          <label class="mb-2 block text-sm font-medium">Inquilino (Loft)</label>
+          <label class="mb-2 block text-sm font-medium">Inquilino (Apartamento)</label>
           <select
             v-model="form.inquilino_id"
             class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-900"
           >
             <option value="">Selecciona inquilino</option>
-            <option v-for="i in inquilinosProyecto" :key="i.id" :value="i.id">Loft {{ i.loft_num }} · {{ i.nombre }}</option>
+            <option v-for="i in inquilinosProyecto" :key="i.id" :value="i.id">Apartamento {{ i.loft_num }} · {{ i.nombre }}</option>
           </select>
         </div>
         <div>
@@ -193,7 +193,7 @@ function nombreProyecto(id: string) {
 
 function nombreInquilino(id: string) {
   const i = inquilinos.value.find((x) => x.id === id)
-  return i ? `Loft ${i.loft_num} · ${i.nombre}` : id
+  return i ? `Apartamento ${i.loft_num} · ${i.nombre}` : id
 }
 
 function formatoFecha(iso: string) {

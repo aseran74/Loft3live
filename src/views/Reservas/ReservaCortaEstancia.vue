@@ -3,7 +3,7 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Reserva Corta Estancia</h1>
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Disponibilidad por loft según inquilinos (vacío, desalojo agosto, reserva específica). Crea reservas de corta estancia con persistencia en InsForge.
+        Disponibilidad por apartamento según inquilinos (vacío, desalojo agosto, reserva específica). Crea reservas de corta estancia con persistencia en InsForge.
       </p>
     </div>
 
@@ -35,12 +35,12 @@
     </div>
 
     <div class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h2 class="mb-4 text-lg font-semibold">Disponibilidad y reservas por loft</h2>
+      <h2 class="mb-4 text-lg font-semibold">Disponibilidad y reservas por apartamento</h2>
       <div class="overflow-x-auto">
         <table class="min-w-full text-sm">
           <thead class="bg-gray-50 dark:bg-gray-900">
             <tr>
-              <th class="px-3 py-2 text-left">Loft</th>
+              <th class="px-3 py-2 text-left">Apartamento</th>
               <th class="px-3 py-2 text-left">Disponibilidad (libre para corta estancia)</th>
               <th class="px-3 py-2 text-left">Reservas corta estancia</th>
               <th class="px-3 py-2 text-right w-32">Acción</th>
@@ -52,7 +52,7 @@
               :key="fila.loft_num"
               class="border-t border-gray-100 dark:border-gray-700"
             >
-              <td class="px-3 py-2 font-medium">Loft {{ fila.loft_num }}</td>
+              <td class="px-3 py-2 font-medium">Apartamento {{ fila.loft_num }}</td>
               <td class="px-3 py-2">
                 <span v-if="fila.disponibilidad.length === 0" class="text-gray-500">Sin disponibilidad</span>
                 <ul v-else class="list-inside list-disc space-y-0.5 text-xs">
@@ -107,7 +107,7 @@
         @click.self="cerrarModalNueva"
       >
         <div class="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl dark:bg-gray-800">
-          <h3 class="mb-4 text-lg font-semibold">Nueva reserva corta estancia · Loft {{ formReserva.loft_num }}</h3>
+          <h3 class="mb-4 text-lg font-semibold">Nueva reserva corta estancia · Apartamento {{ formReserva.loft_num }}</h3>
           <div class="grid grid-cols-1 gap-4">
             <div>
               <label class="mb-2 block text-sm font-medium">Fecha entrada</label>
@@ -375,7 +375,7 @@ async function guardarReserva() {
     return
   }
   if (!rangoDentroDeDisponibilidad(loft_num, fecha_inicio, fecha_fin)) {
-    error.value = 'El rango de fechas no está dentro de la disponibilidad del loft.'
+    error.value = 'El rango de fechas no está dentro de la disponibilidad del apartamento.'
     return
   }
   if (solapaOtraReserva(loft_num, fecha_inicio, fecha_fin)) {

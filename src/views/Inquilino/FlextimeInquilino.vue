@@ -3,7 +3,7 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Flextime</h1>
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Intercambio de días entre inquilinos: activa periodos en tu loft y acumula puntos cuando otros lo usen. Todos tenéis <strong>1000 puntos de bienvenida</strong>. 1 día = puntos según tu renta mensual ÷ 30.
+        Intercambio de días entre inquilinos: activa periodos en tu apartamento y acumula puntos cuando otros lo usen. Todos tenéis <strong>1000 puntos de bienvenida</strong>. 1 día = puntos según tu renta mensual ÷ 30.
       </p>
     </div>
 
@@ -23,7 +23,7 @@
     <div class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
       <h2 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Activar periodo Flextime</h2>
       <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        Indica las fechas en que tu loft está disponible para otros inquilinos. Elige un rango en el calendario. Puntos/día según tu renta: <strong>{{ puntosPorDiaDefault }} pts/día</strong>.
+        Indica las fechas en que tu apartamento está disponible para otros inquilinos. Elige un rango en el calendario. Puntos/día según tu renta: <strong>{{ puntosPorDiaDefault }} pts/día</strong>.
       </p>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div class="sm:col-span-2">
@@ -100,7 +100,7 @@
     <div v-if="solicitudesRecibidas.length > 0" class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
       <h2 class="mb-4 text-lg font-semibold text-gray-800 dark:text-white">Solicitudes recibidas</h2>
       <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-        Otros inquilinos quieren usar tu loft. Al aprobar, se les restan los puntos y a ti se te suman automáticamente.
+        Otros inquilinos quieren usar tu apartamento. Al aprobar, se les restan los puntos y a ti se te suman automáticamente.
       </p>
       <div class="overflow-x-auto">
         <table class="min-w-full text-sm">
@@ -119,7 +119,7 @@
               :key="s.id"
               class="border-t border-gray-100 dark:border-gray-700"
             >
-              <td class="px-3 py-2">{{ s.visitante_nombre ?? '—' }} (Loft {{ s.visitante_loft }})</td>
+              <td class="px-3 py-2">{{ s.visitante_nombre ?? '—' }} (Apartamento {{ s.visitante_loft }})</td>
               <td class="px-3 py-2">{{ s.dias_usados }}</td>
               <td class="px-3 py-2">{{ s.puntos }}</td>
               <td class="px-3 py-2">{{ formatoFechaHora(s.created_at) }}</td>

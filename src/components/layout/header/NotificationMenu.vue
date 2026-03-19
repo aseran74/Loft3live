@@ -280,7 +280,7 @@ async function loadNotifications() {
         list.push({
           id: `canje-${x.id}`,
           type: 'reserva_aprobada',
-          title: soyPropietario ? 'Han aprobado usar tu loft' : 'Tu solicitud de uso de loft aprobada',
+          title: soyPropietario ? 'Han aprobado usar tu apartamento' : 'Tu solicitud de uso de apartamento aprobada',
           body: `${x.dias_usados} día(s) · ${x.puntos} puntos`,
           time: formatTime(x.created_at),
           link: '/inquilino/flextime',

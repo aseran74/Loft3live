@@ -22,8 +22,8 @@
         <p style="color: #0D0D0D">No hay oportunidades disponibles en este momento.</p>
       </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-        <div v-for="(proyecto, index) in proyectos.slice(0, 4)" :key="proyecto.id" class="proyecto-card opacity-0">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div v-for="(proyecto, index) in proyectos.slice(0, 6)" :key="proyecto.id" class="proyecto-card opacity-0">
           <ProyectoCard
             :proyecto="proyecto"
             public
@@ -33,7 +33,7 @@
         </div>
       </div>
 
-      <div v-if="!loading && proyectos.length > 4" class="mt-12 text-center opacity-0" id="oportunidades-btn">
+      <div v-if="!loading && proyectos.length > 6" class="mt-12 text-center opacity-0" id="oportunidades-btn">
         <router-link
           to="/inversiones"
           class="inline-flex items-center justify-center px-8 py-4 rounded-xl text-lg font-semibold text-white bg-brand-500 hover:opacity-90 shadow-xl shadow-brand-500/30 transition-all hover:-translate-y-1"
@@ -133,7 +133,7 @@ async function load() {
   loading.value = true
   error.value = null
   try {
-    proyectos.value = await fetchPublicProyectos()
+    proyectos.value = await fetchPublicProyectos(true)
   } catch (e: any) {
     error.value = e?.message || 'Error al cargar oportunidades'
   } finally {

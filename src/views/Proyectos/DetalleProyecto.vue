@@ -99,9 +99,9 @@
               </div>
             </div>
 
-            <!-- 2. Fotos después de la reforma (convertido en loft) -->
+            <!-- 2. Fotos después de la reforma (convertido en apartamento) -->
             <div v-if="proyecto.fotos_oficina_remodelada?.length > 0">
-              <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Fotos después de la reforma (convertido en loft)</h2>
+              <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Fotos después de la reforma (convertido en apartamento)</h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div
                   v-for="(photo, idx) in proyecto.fotos_oficina_remodelada"
@@ -113,7 +113,7 @@
                   <div class="aspect-[4/3] bg-gray-100">
                     <img
                       :src="getPhotoUrl(photo)"
-                      :alt="`Loft después reforma - ${proyecto.nombre_proyecto}`"
+                      :alt="`Apartamento después reforma - ${proyecto.nombre_proyecto}`"
                       class="w-full h-full object-cover"
                     />
                   </div>
@@ -244,9 +244,9 @@
                 <h2 class="text-2xl font-bold mb-4" style="color: #0D0D0D">Detalles del proyecto</h2>
                 <div class="space-y-4">
                   <div class="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-gray-200">
-                    <span class="text-gray-600 mb-1 sm:mb-0">Precio por unidad</span>
+                    <span class="text-gray-600 mb-1 sm:mb-0">TIR preferente</span>
                     <span class="font-semibold text-lg" style="color: #0D0D0D">
-                      {{ formatCurrency(proyecto.precio_unidad) }}
+                      {{ proyecto.tir_preferente != null ? `${Number(proyecto.tir_preferente)}%` : '—' }}
                     </span>
                   </div>
                   <div v-if="proyecto.alquiler && proyecto.precio_alquiler_mes" class="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-gray-200">
@@ -451,7 +451,7 @@
                     <span class="font-semibold" style="color: #0D0D0D">{{ proyecto.tipo_inversion }}</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-gray-600">Lofts disponibles</span>
+                    <span class="text-gray-600">Apartamentos disponibles</span>
                     <span class="font-semibold" style="color: #0D0D0D">{{ proyecto.num_lofts }}</span>
                   </div>
                   <div class="flex justify-between">
@@ -662,7 +662,7 @@
           <p class="text-gray-700 mb-6">
             Imagina que eres un profesional o empresa que factura <strong>{{ formatCurrency(facturacionAnual || 0) }}</strong> al año.
             Sin una estrategia inmobiliaria inteligente, tu base imponible es muy alta y terminas pagando un porcentaje elevado en impuestos.
-            Con nuestro modelo de Smart Loft, transformas tu gasto de vida en un escudo fiscal.
+            Con nuestro modelo de Apartamento Smart, transformas tu gasto de vida en un escudo fiscal.
           </p>
 
           <div class="space-y-6">
@@ -675,7 +675,7 @@
                 <strong>Alquiler con nosotros:</strong> De esos {{ formatCurrency(facturacionAnual || 0) }}, restas 12.000 € de la oficina y el 30% de la vivienda. Ahora Hacienda solo te calcula impuestos sobre <strong>~{{ formatCurrency(baseReducidaAutonomo) }}</strong> en lugar de {{ formatCurrency(facturacionAnual || 0) }}.
               </p>
               <p class="text-sm text-gray-700 mb-3">
-                <strong>Resultado:</strong> Te ahorras unos <strong>{{ formatCurrency(ahorroIrpfAprox) }}</strong> al año en IRPF. Es como si el loft te costara varios meses menos al año.
+                <strong>Resultado:</strong> Te ahorras unos <strong>{{ formatCurrency(ahorroIrpfAprox) }}</strong> al año en IRPF. Es como si el apartamento te costara varios meses menos al año.
               </p>
               <p class="text-sm text-gray-700 mb-2">
                 <strong>Compra con nosotros ({{ formatCurrency(valorInmueble) }}):</strong>
@@ -707,7 +707,7 @@
                     <tr style="background-color: #F2F2F2">
                       <th class="text-left py-2 px-3 border" style="border-color: #C8D9B0; color: #0D0D0D">Concepto</th>
                       <th class="text-left py-2 px-3 border" style="border-color: #C8D9B0; color: #0D0D0D">Sin nuestro modelo</th>
-                      <th class="text-left py-2 px-3 border" style="border-color: #C8D9B0; color: #2793F2">Con Smart Loft 80/20</th>
+                      <th class="text-left py-2 px-3 border" style="border-color: #C8D9B0; color: #2793F2">Con Apartamento Smart 80/20</th>
                     </tr>
                   </thead>
                   <tbody>

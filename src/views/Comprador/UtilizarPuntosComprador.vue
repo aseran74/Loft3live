@@ -3,7 +3,7 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Utilizar puntos</h1>
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Usa tus puntos (obtenidos en Compra de puntos) para solicitar estancias en lofts. Filtra por localidad y consulta el mapa.
+        Usa tus puntos (obtenidos en Compra de puntos) para solicitar estancias en apartamentos. Filtra por localidad y consulta el mapa.
       </p>
     </div>
 
@@ -14,7 +14,7 @@
     <div class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
       <h2 class="mb-2 text-lg font-semibold text-gray-800 dark:text-white">Tu saldo de puntos</h2>
       <p class="text-2xl font-bold text-violet-600 dark:text-violet-400">{{ saldo }}</p>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Puntos disponibles para canjear por estancias en lofts.</p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Puntos disponibles para canjear por estancias en apartamentos.</p>
     </div>
 
     <!-- Filtro por localidad y mapa -->
@@ -48,9 +48,9 @@
       </div>
     </div>
 
-    <!-- Solicitar usar loft -->
-    <div class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-      <h2 class="mb-2 text-lg font-semibold text-gray-800 dark:text-white">Solicitar usar loft con tus puntos</h2>
+    <!-- Solicitar usar apartamento -->
+      <div class="mb-6 rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+      <h2 class="mb-2 text-lg font-semibold text-gray-800 dark:text-white">Solicitar usar apartamento con tus puntos</h2>
       <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
         Elige fechas, proyecto y una disponibilidad. Los puntos se descontarán al aprobar.
       </p>
@@ -204,7 +204,7 @@
               Todas las fechas disponibles ({{ opcionesParaCards.length }} opciones). Elige una y luego indica tu rango de fechas.
             </template>
             <template v-else-if="tieneRangoValido && !filtroProyectoId">
-              Disponibilidades en tu rango de fechas ({{ opcionesParaCards.length }} opciones). Elige un loft para reservar.
+              Disponibilidades en tu rango de fechas ({{ opcionesParaCards.length }} opciones). Elige un apartamento para reservar.
             </template>
             <template v-else>
               {{ tieneRangoValido ? 'Disponibilidades en tu rango de fechas' : 'Disponibilidades · Elige un rango de fechas para ver disponibilidad y precio' }}
@@ -236,7 +236,7 @@
             @click="seleccionarOpcion(p)"
           >
             <div class="mb-2 flex items-center justify-between gap-2">
-              <span class="text-2xl font-bold tabular-nums text-gray-900 dark:text-white">Loft {{ p.loft_num }}</span>
+              <span class="text-2xl font-bold tabular-nums text-gray-900 dark:text-white">Apartamento {{ p.loft_num }}</span>
               <span
                 class="rounded-full px-2.5 py-0.5 text-xs font-semibold"
                 :class="{
@@ -622,12 +622,12 @@ function etiquetaOpcion(p: PeriodoOtro): string {
   const fechas = `${formatoFecha(p.fecha_desde)} – ${formatoFecha(p.fecha_hasta)}`
   const pts = ` (${p.puntos_por_dia} pts/día)`
   if (p.tipo === 'libre_agosto') {
-    return `Loft ${p.loft_num} - Agosto libre (desalojo agosto) · ${proy}${loc} · ${fechas}${pts}`
+    return `Apartamento ${p.loft_num} - Agosto libre (desalojo agosto) · ${proy}${loc} · ${fechas}${pts}`
   }
   if (p.tipo === 'libre') {
-    return `Loft ${p.loft_num} - Libre temporada (sep–ago, sin inquilino) · ${proy}${loc} · ${fechas}${pts}`
+    return `Apartamento ${p.loft_num} - Libre temporada (sep–ago, sin inquilino) · ${proy}${loc} · ${fechas}${pts}`
   }
-  return `${p.propietario_nombre ?? ''} (Loft ${p.loft_num}) · ${proy}${loc} · ${fechas}${pts}`
+  return `${p.propietario_nombre ?? ''} (Apartamento ${p.loft_num}) · ${proy}${loc} · ${fechas}${pts}`
 }
 
 async function cargarSaldoPuntos() {
@@ -807,7 +807,7 @@ async function enviarSolicitud() {
       const parts = p.id.slice(6).split(':')
       const [proyectoId, loftNumStr] = parts
       const loftNum = parseInt(loftNumStr || '0', 10)
-      if (!proyectoId || !loftNum) throw new Error('Datos de loft vacío incorrectos')
+      if (!proyectoId || !loftNum) throw new Error('Datos de apartamento vacío incorrectos')
       const { error: errVacio } = await insforge.database.from('comprador_reserva_loft_vacio').insert({
         comprador_id: c.id,
         proyecto_id: proyectoId,
@@ -820,7 +820,7 @@ async function enviarSolicitud() {
       })
       if (errVacio) {
         if (errVacio.message?.includes('does not exist') || errVacio.message?.includes('relation')) {
-          error.value = 'Reserva de loft vacío en proceso. Contacta con el equipo para confirmar disponibilidad.'
+          error.value = 'Reserva de apartamento vacío en proceso. Contacta con el equipo para confirmar disponibilidad.'
           return
         }
         throw errVacio
@@ -837,7 +837,7 @@ async function enviarSolicitud() {
       if (err) throw err
     }
 
-    success.value = 'Reserva registrada y aprobada. Puedes usar el loft en las fechas indicadas.'
+    success.value = 'Reserva registrada y aprobada. Puedes usar el apartamento en las fechas indicadas.'
     formSolicitud.value = { periodo_id: '', fecha_desde: '', fecha_hasta: '' }
     await load()
   } catch (e: unknown) {

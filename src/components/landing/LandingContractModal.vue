@@ -33,7 +33,7 @@
             :class="{ 'contract-tab-active': activeModel === 'permuta' }"
             @click="activeModel = 'permuta'"
           >
-            📑 Permuta (loft entero por tokens)
+            📑 Permuta (apartamento entero por tokens)
           </button>
           <button
             type="button"
