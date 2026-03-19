@@ -75,15 +75,15 @@
           <ul class="niveles-list">
             <li>
               <strong class="nivel-label">Acceso flexible sin inversión</strong>
-              <span class="nivel-desc">Vive y trabaja en el espacio sin necesidad de aportar capital inicial.</span>
+              <span class="nivel-desc">- Vive y trabaja en el espacio sin necesidad de aportar capital inicial.</span>
             </li>
             <li>
               <strong class="nivel-label">Socio Flex (desde 5.000€)</strong>
-              <span class="nivel-desc">Adquiere una participación del inmueble, genera ingresos proporcionales y disfruta de descuentos exclusivos en estancias.</span>
+              <span class="nivel-desc">- Adquiere una participación del inmueble, genera ingresos proporcionales y disfruta de descuentos exclusivos en estancias.</span>
             </li>
             <li>
               <strong class="nivel-label">Compra directa de un apartamento</strong>
-              <span class="nivel-desc">Control total del activo, con plena libertad de uso y gestión.</span>
+              <span class="nivel-desc">- Control total del activo, con plena libertad de uso y gestión.</span>
             </li>
           </ul>
         </div>
