@@ -1,11 +1,11 @@
 <template>
-  <section id="oportunidades" class="py-24 bg-[#E1DBD6]">
+  <section id="oportunidades" class="py-24 bg-[#f7f7f7]">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
       <div class="text-center mb-16 opacity-0" id="oportunidades-header">
-        <h2 class="text-4xl lg:text-5xl font-extrabold mb-4 text-gray-900 tracking-tight font-syne">
-          Oportunidades de <span class="text-brand-500">inversión actual</span>
+        <h2 class="text-4xl lg:text-5xl font-semibold mb-4 text-[#222222] tracking-tight">
+          Oportunidades de <span class="text-[#ff385c]">inversion actual</span>
         </h2>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto">
+        <p class="text-lg text-[#6a6a6a] max-w-2xl mx-auto">
           Descubre nuestros proyectos seleccionados y empieza a construir tu patrimonio inmobiliario hoy mismo.
         </p>
       </div>
@@ -19,7 +19,7 @@
       </div>
 
       <div v-else-if="proyectos.length === 0" class="text-center py-12">
-        <p style="color: #0D0D0D">No hay oportunidades disponibles en este momento.</p>
+        <p class="text-[#222222]">No hay oportunidades disponibles en este momento.</p>
       </div>
 
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
@@ -36,7 +36,7 @@
       <div v-if="!loading && proyectos.length > 6" class="mt-12 text-center opacity-0" id="oportunidades-btn">
         <router-link
           to="/inversiones"
-          class="inline-flex items-center justify-center px-8 py-4 rounded-xl text-lg font-semibold text-white bg-brand-500 hover:opacity-90 shadow-xl shadow-brand-500/30 transition-all hover:-translate-y-1"
+          class="inline-flex items-center justify-center px-8 py-4 rounded-xl text-lg font-semibold text-white bg-[#ff385c] hover:bg-[#e03150] shadow-[0_12px_26px_rgba(255,56,92,0.3)] transition-all hover:-translate-y-1"
         >
           Ver todos los proyectos
         </router-link>

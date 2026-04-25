@@ -1,14 +1,14 @@
 <template>
-  <section class="py-24 bg-[#E1DBD6] relative overflow-hidden">
+  <section class="py-24 bg-[#f7f7f7] relative overflow-hidden">
     <!-- Elementos decorativos -->
-    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#dddddd] to-transparent"></div>
     
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
       <div class="text-center mb-16 benefits-header">
-        <h2 class="text-4xl lg:text-5xl font-extrabold mb-6 text-gray-900 tracking-tight font-syne">
-          <span class="text-brand-500">Beneficios</span>
+        <h2 class="text-4xl lg:text-5xl font-semibold mb-6 text-[#222222] tracking-tight">
+          <span class="text-[#ff385c]">Beneficios</span>
         </h2>
-        <p class="text-xl text-gray-700 max-w-2xl mx-auto">
+        <p class="text-xl text-[#6a6a6a] max-w-2xl mx-auto">
           Un ecosistema diseñado para maximizar el valor tanto para inversores como para promotores.
         </p>
       </div>
@@ -16,20 +16,20 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         <!-- For Investors -->
         <div class="benefits-column">
-          <h3 class="text-2xl font-bold mb-8 text-center text-gray-900 flex items-center justify-center gap-3 font-syne">
-            <span class="w-8 h-px bg-brand-500"></span>
+          <h3 class="text-2xl font-semibold mb-8 text-center text-[#222222] flex items-center justify-center gap-3">
+            <span class="w-8 h-px bg-[#ff385c]"></span>
             Para los inversores
-            <span class="w-8 h-px bg-brand-500"></span>
+            <span class="w-8 h-px bg-[#ff385c]"></span>
           </h3>
           <div class="space-y-5">
-            <div class="benefit-card bg-white rounded-2xl p-6 shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 group">
-              <h4 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-brand-500 transition-colors">Gestione sus inversiones en tiempo real</h4>
-              <p class="text-gray-600 leading-relaxed">Nuestro sistema automatizado facilita mucho el proceso.</p>
+            <div class="benefit-card bg-white rounded-2xl p-6 shadow-[0_6px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-all duration-300 border border-[#ebebeb] transform hover:-translate-y-1 group">
+              <h4 class="text-lg font-semibold mb-2 text-[#222222] group-hover:text-[#ff385c] transition-colors">Gestione sus inversiones en tiempo real</h4>
+              <p class="text-[#6a6a6a] leading-relaxed">Nuestro sistema automatizado facilita mucho el proceso.</p>
             </div>
 
-            <div class="benefit-card bg-white rounded-2xl p-6 shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 group">
-              <h4 class="text-lg font-bold mb-2 text-gray-900 group-hover:text-brand-500 transition-colors">Pagos regulares de intereses</h4>
-              <p class="text-gray-600 leading-relaxed">Reinvertir o Retirar</p>
+            <div class="benefit-card bg-white rounded-2xl p-6 shadow-[0_6px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.08)] transition-all duration-300 border border-[#ebebeb] transform hover:-translate-y-1 group">
+              <h4 class="text-lg font-semibold mb-2 text-[#222222] group-hover:text-[#ff385c] transition-colors">Pagos regulares de intereses</h4>
+              <p class="text-[#6a6a6a] leading-relaxed">Reinvertir o retirar.</p>
             </div>
 
             <div class="benefit-card bg-white rounded-2xl p-6 shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 group">
