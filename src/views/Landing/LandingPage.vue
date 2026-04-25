@@ -1,5 +1,5 @@
 <template>
-  <div class="airbnb-landing min-h-screen bg-[#f7f7f7] text-[#222222]">
+  <div class="min-h-screen bg-white dark:bg-gray-900">
     <LandingHeader />
     <main>
       <LandingHero />
